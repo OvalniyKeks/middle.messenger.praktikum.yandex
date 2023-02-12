@@ -1,4 +1,7 @@
-<a href="{{href}}" class="link">
+<a href="{{href}}" class="link {{class}}">
   {{label}}
-  <img src="../assets/images/arrow.png" alt="">
+
+  {{#if arrow}}
+    <img src="../assets/images/arrow.png" alt="">
+  {{/if}}
 </a>
