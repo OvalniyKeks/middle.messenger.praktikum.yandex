@@ -1,0 +1,13 @@
+<div class="chat-item">
+  {{> chat/chatAvatar src="https://u.cubeupload.com/adsuri/7NQDHz.jpeg"}}
+  <div class="chat-item__column">
+    <div class="chat-item__name">{{this.name}}</div>
+    <div class="chat-item__message">{{this.lastMessage}}</div>
+  </div>
+  <div class="chat-item__column">
+    <div class="chat-item__time">{{this.timeOrDate}}</div>
+    {{#if this.unreadMessages}}
+      <div class="chat-item__unread">{{this.unreadMessages}}</div>
+    {{/if}}
+  </div>
+</div>

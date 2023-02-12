@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="../sass/app.sass"/>
+</head>
+<body>
+    <main class="page auth flex flex-center">
+        <div class="card flex flex-align__center">
+            <form class="form form-auth">
+                {{> form/formTitle title="Вход"}}
+                {{> input/input type="text" name="login" placeholder="Логин "}}
+                {{> input/input type="password" name="password" placeholder="Пароль "}}
+                {{> button/button type="submit" link="./index.hbs" label="Войти"}}
+                {{> form/formBottom textLabel="Нет аккаунта?" link='./register.hbs' linkLabel="Зарегистрироваться"}}
+            </form>
+            <img src="../assets/images/auth_form.png" alt="">
+        </div>
+    </main>
+</body>
+</html>

@@ -1,3 +1,53 @@
-<main>
-  wadwadwd
-</main>
+---
+chat:
+  - name: Вадим
+    lastMessage: Го
+    timeOrDate: 24.01.2023
+    unreadMessages: 3
+  - name: Алексей
+    lastMessage: Го
+    timeOrDate: 24.01.2023
+    unreadMessages: 3
+  - name: Саня
+    lastMessage: Го
+    timeOrDate: 24.01.2023
+    unreadMessages: 3
+  - name: Вадим
+    lastMessage: Го
+    timeOrDate: 24.01.2023
+    unreadMessages: 3
+  - name: Алексей
+    lastMessage: Го
+    timeOrDate: 24.01.2023
+    unreadMessages: 3
+  - name: Саня
+    lastMessage: Го
+    timeOrDate: 24.01.2023
+    unreadMessages: 0
+  - name: Вадим
+    lastMessage: Го
+    timeOrDate: 24.01.2023
+    unreadMessages: 3
+  - name: Алексей
+    lastMessage: Го
+    timeOrDate: 24.01.2023
+    unreadMessages: 0
+  - name: Саня
+    lastMessage: Го
+    timeOrDate: 24.01.2023
+    unreadMessages: 3
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Чаты</title>
+    <link rel="stylesheet" href="../sass/app.sass"/>
+</head>
+<body>
+    <main class="page main flex">
+        {{> chat/chatBar }}
+        {{> chat/chatMessage }}
+    </main>
+</body>
+</html>

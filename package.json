@@ -1,20 +1,27 @@
 {
-  "name": "parcel-handlebars-precompile",
+  "name": "chat_practicum",
   "version": "1.0.0",
-  "license": "MIT",
+  "description": "",
   "scripts": {
-    "start": "node src/server.js ",
-    "dev": "parcel src/index.html --port 3000",
-    "build": "parcel build src/index.html"
+    "dev": "parcel src/pages/index.hbs --no-cache --port 3000",
+    "build": "parcel build src/pages/index.hbs --no-cache",
+    "start": "parcel build src/pages/index.hbs && node server.js"
   },
-  "dependencies": {
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@anikin/parcel-transformer-handlebars": "1.0.9",
     "@anikin/parcel-transformer-handlebars-precompile": "1.0.1",
-    "@parcel/transformer-sass": "2.8.3",
+    "@parcel/transformer-sass": "^2.8.3",
+    "autoprefixer": "10.4.13",
     "express": "4.18.2",
     "handlebars": "4.7.7",
-    "parcel": "2.8.3"
+    "parcel": "2.8.3",
+    "postcss": "8.4.21",
+    "postcss-nested": "6.0.0"
   },
-  "devDependencies": {
-    "parcel": "2.8.3"
+  "dependencies": {
+    "handlebars": "4.7.7"
   }
 }
