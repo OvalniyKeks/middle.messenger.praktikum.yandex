@@ -1,8 +1,9 @@
-import template from './index.hbs';
-import './components/button';
+import { pages } from "./pages.js";
+
+import './partials.js';
 
 window.addEventListener('DOMContentLoaded', () => {
   const app = document.querySelector('#app');
 
-  app.innerHTML = template({ variable: 'Hello world' });
+  app.innerHTML = pages.auth();
 });
