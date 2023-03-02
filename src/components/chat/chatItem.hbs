@@ -1,0 +1,15 @@
+<div class="chat-item">
+  <div class="chat-item__left">
+    {{> chat/chatAvatar src=this.image}}
+    <div class="chat-item__column" style="margin-left: 18px">
+      <div class="chat-item__name">{{this.name}}</div>
+      <div class="chat-item__message">{{this.lastMessage}}</div>
+    </div>
+  </div>
+  <div class="chat-item__column chat-item__right">
+    <div class="chat-item__time">{{this.timeOrDate}}</div>
+    {{#if this.unreadMessages}}
+      <div class="chat-item__unread">{{this.unreadMessages}}</div>
+    {{/if}}
+  </div>
+</div>
