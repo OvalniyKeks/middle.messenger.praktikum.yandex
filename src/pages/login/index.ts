@@ -11,27 +11,28 @@ export class Login extends Block {
   }
 
   init() {
-    this.children.FormLogin = new FormLogin({
-      name: 'login',
-      className: ['form-auth', 'form'],
-      events: {
-        submit: (event: SubmitEvent) => {
+		this.element!.classList.add('page', 'auth', 'flex', 'flex-center');
+
+		this.children.FormLogin = new FormLogin({
+		  name: 'login',
+		  className: ['form-auth', 'form'],
+		  events: {
+		    submit: (event: SubmitEvent) => {
 					event!.preventDefault();
 					const resultCheck = FormFn.checkForm('login');
 					if (resultCheck) {
 					  console.log(FormFn.getFields('login'));
 					  Router.push('chat');
 					}
-        },
-      },
-    });
+		    },
+		  },
+		});
   }
 
   render() {
     return `
     <div class="card flex flex-align__center">
 				{{{FormLogin}}}
-        <img src="../assets/images/auth_form.png" alt="">
     </div>
     `;
   }

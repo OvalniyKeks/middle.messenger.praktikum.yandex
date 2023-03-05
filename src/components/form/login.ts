@@ -33,6 +33,7 @@ export class FormLogin extends Block {
 
   render() {
     return `
+        <h2 class="form-title">Вход</h2>	
         {{{InputLogin}}}
         {{{InputPassword}}}
         {{{ButtonSubmit}}}

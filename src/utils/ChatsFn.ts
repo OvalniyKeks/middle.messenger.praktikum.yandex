@@ -79,16 +79,3 @@ export class ChatsFn {
     }
   }
 }
-
-// export function getChats(): any {
-// 	return Chats
-// }
-
-// export function changeChat(id: string): void {
-// 	const chat = Chats.find(item => item._id === id)
-// 	if (chat) {
-// 		chat.selected = true
-// 		return chat
-// 	}
-// 	return;
-// }

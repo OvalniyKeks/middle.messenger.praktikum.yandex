@@ -22,7 +22,6 @@ export class FormFn {
       const resultCheck = this.checkField(element.getAttribute('name'));
       if (!resultCheck) {
         isError = true;
-        this.deleteError(element.getAttribute('name'));
       }
     });
 
@@ -38,9 +37,6 @@ export class FormFn {
     }
     // @ts-ignore
     const { value } = this.getField(name);
-    if (!value) {
-      return;
-    }
 
     if (name === 'repeatPassword') {
       // @ts-ignore
