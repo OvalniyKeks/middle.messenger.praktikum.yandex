@@ -1,0 +1,21 @@
+{
+    "extends": "airbnb",
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "parserOptions": {
+      "ecmaVersion": "latest"
+    },
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "rules": {
+      "semi": "error",
+      "no-var": "error",
+      "indent": "error",
+      "no-multi-spaces": "error",
+      "prefer-const": "error",
+      "no-duplicate-imports" : "error",
+      "eqeqeq": ["error", "always"]
+    }
+  }
