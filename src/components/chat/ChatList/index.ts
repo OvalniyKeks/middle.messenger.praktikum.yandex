@@ -1,7 +1,7 @@
 import { Block, ChatsFn } from '../../../utils';
 import { ChatItem } from '../chatItem';
 
-interface ChatBarProps {
+interface ChatListProps {
 	className: Array<string>;
 	events?: {
 		click: () => void;
@@ -9,7 +9,7 @@ interface ChatBarProps {
 }
 
 export class ChatList extends Block {
-  constructor(props: ChatBarProps) {
+  constructor(props: ChatListProps) {
     super('div', props);
   }
 
