@@ -27,8 +27,6 @@ export class ChatBar extends Block {
       arrow: true,
     });
 
-    this.children.chats = this._getChats();
-
     this.children.Input = new Input({
       className: ['input-field'], type: 'search', name: 'search', placeholder: 'Поиск по чатам...',
     });
@@ -36,8 +34,7 @@ export class ChatBar extends Block {
 
   render() {
     return `
-		<div class="chat-bar__top">
-			<div class="chat-bar__profile">
+    <div class="chat-bar__profile">
 			  <div class="chat-bar__profile-inner">
 				{{{ChatAvatar}}}
 				<div class="chat-bar__profile-title">Антон</div>
@@ -45,25 +42,6 @@ export class ChatBar extends Block {
 			  {{{ Link}}}
 			</div>
 			{{{Input}}}
-	  </div>
-	  <div class="chat-bar__items">
-			{{#each chats}}
-				{{{ this }}}
-			{{/each}}
-	  </div>`;
-  }
-
-  _getChats() {
-    const chats = ChatsFn.getChats();
-
-    return chats.map((chat: { _id: any; }) => new ChatItem({
-      className: ['chat-item'],
-      chatData: chat,
-      events: {
-        click: () => {
-          ChatsFn.changeChat(chat._id);
-        },
-      },
-    }));
+		`;
   }
 }

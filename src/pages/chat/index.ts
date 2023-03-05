@@ -1,5 +1,6 @@
 import { Block, ChatsFn } from '../../utils';
 import { ChatBar } from '../../components/chat/chatBar';
+import { ChatList } from '../../components/chat/ChatList';
 import { ChatMessage } from '../../components/chat/ChatMessage';
 
 interface ChatProps {
@@ -13,8 +14,9 @@ export class Chat extends Block {
   }
 
   init() {
-    this.children.ChatBar = new ChatBar({
-      className: ['chat-bar'],
+    this.children.ChatBar = new ChatBar({className: ['chat-bar__top'],});
+    this.children.ChatList = new ChatList({
+      className: ['chat-bar__items'],
       events: {
         click: () => {
           this.setProps(
@@ -29,7 +31,12 @@ export class Chat extends Block {
   }
 
   render() {
-    return `<div class="chat">{{{ChatBar}}} {{{ChatMessage}}}</div>`;
+    return `<div class="chat">
+			<div class="chat-bar">
+				{{{ChatBar}}}
+				{{{ChatList}}}
+			</div>
+			{{{ChatMessage}}}</div>`;
   }
 
   getComponentChat() {
