@@ -1,8 +1,9 @@
 .chat
+  display: flex
   &-bar
     width: 300px
     height: 100vh
-    border-right: 1px solid #D9D9D9
+    border-right: 1px solid $border
     &__profile
       display: flex
       align-items: center
@@ -14,7 +15,6 @@
       &-title
         font-size: 16px
         font-weight: 500
-        color: #222
         margin-left: 10px
     &__top
       padding-top: 18px
@@ -47,7 +47,7 @@
         content: '\270E'
         opacity: 0
         position: absolute
-        color: #2D88F4
+        color: $link
         font-size: 32px
         top: 50%
         left: 50%
@@ -69,7 +69,11 @@
     display: flex
     align-items: center
     justify-content: space-between
-    border-top: 1px solid #D9D9D9
+    border-top: 1px solid $border
+    cursor: pointer
+    transition: .3s all ease
+    &:hover
+      background: #cfcfcf
     &__column
       min-height: 50px
       display: flex
@@ -85,20 +89,20 @@
       font-weight: 500
     &__message
       font-size: 14px
-      color: #838383
+      color: $subtext
       font-weight: 500
     &__time
-      color: #878787
+      color: $subtext
       font-size: 12px
     &__unread
       width: 20px
       min-width: 20px
       height: 20px
       min-height: 20px
-      background: #2D88F4
+      background: $link
       border-radius: 50%
       display: flex
       justify-content: center
       align-items: center
-      color: #fff
+      color: $accent_text_link
       font-size: 12px

@@ -12,16 +12,18 @@ dataProfile:
     value: Антон
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Чаты</title>
     <link rel="stylesheet" href="../../sass/app.sass"/>
 </head>
 <body>
     <main class="page profile flex flex-center flex-column">
       <div class="card card-profile">
-        {{> chat/chatAvatar src="https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg"}}
+        {{> chat/chatAvatarEdit src="https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg"}}
         <div class="flex flex-column flex-around" style="margin-left: 20px;">
           <div class="card-profile__name">Антон</div>
           <div class="card-profile__phone">+7 (909) 643 34 43</div>
@@ -29,8 +31,12 @@ dataProfile:
       </div>
       <div class="card">
         <form onsubmit="event.preventDefault()">
-          {{> input/input type="password" name="oldPassword" placeholder="Текущий пароль "}}
-          {{> input/input type="password" name="newPassword" placeholder="Новый пароль "}}
+          {{> input/input type="text" name="first_name" placeholder="Имя "}}
+          {{> input/input type="text" name="second_name" placeholder="Фамилия "}}
+          {{> input/input type="text" name="display_name" placeholder="Имя в чате "}}
+          {{> input/input type="text" name="login" placeholder="Логин "}}
+          {{> input/input type="email" name="email" placeholder="Email "}}
+          {{> input/input type="tel" name="phone" placeholder="Телефон "}}
           {{> button/button type="submit" link="./index.hbs" label="Сохранить"}}
         </form>
       </div>
