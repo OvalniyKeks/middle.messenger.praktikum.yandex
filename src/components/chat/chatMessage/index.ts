@@ -1,6 +1,6 @@
 import { Block } from '../../../utils';
 import { Input } from '../../input';
-import { Button } from '../../button'
+import { Button } from '../../button';
 
 interface chat {
 	_id: string,
@@ -18,24 +18,24 @@ interface ChatMessageProps {
 }
 
 export class ChatMessage extends Block {
-	constructor(props: ChatMessageProps) {
-		super('div', props);
-	}
+  constructor(props: ChatMessageProps) {
+    super('div', props);
+  }
 
-	init() {
-		this.props.className.forEach((element: string) => this.element!.classList.add(element));
+  init() {
+    this.props.className.forEach((element: string) => this.element!.classList.add(element));
 
-		console.log(this.props.currentChat)
-		this.children.InputFIle = new Input({ className: ['chat-message__input-file'], type: 'file', name: 'file' })
-		this.children.InputMessage = new Input({ className: ['input-field', 'chat-message__input-text'], type: 'text', name: 'message' })
-		this.children.ButtonSend = new Button({ className: ['chat-message__input-send'], type: 'submit', name: 'send' })
-	}
+    console.log(this.props.currentChat);
+    this.children.InputFIle = new Input({ className: ['chat-message__input-file'], type: 'file', name: 'file' });
+    this.children.InputMessage = new Input({ className: ['input-field', 'chat-message__input-text'], type: 'text', name: 'message' });
+    this.children.ButtonSend = new Button({ className: ['chat-message__input-send'], type: 'submit', name: 'send' });
+  }
 
-	render() {
-		if (typeof this.props.currentChat === 'string') {
-			return `${this.props.currentChat}`;
-		}
-		return `
+  render() {
+    if (typeof this.props.currentChat === 'string') {
+      return `${this.props.currentChat}`;
+    }
+    return `
       <div class="chat-message__header">
     	  <div class="chat-bar__profile">
     	    <div class="chat-bar__profile-inner">
@@ -65,5 +65,5 @@ export class ChatMessage extends Block {
     	  {{{InputMessage}}}
     	  {{{ButtonSend}}}
     	</div>`;
-	}
+  }
 }

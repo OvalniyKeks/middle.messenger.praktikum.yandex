@@ -1,6 +1,6 @@
-import { Block } from '../../utils/';
-import { ChatBarAvatar } from '../../components/chat/chatAvatar'
-import { Link } from '../../components/link'
+import { Block } from '../../utils';
+import { ChatBarAvatar } from '../../components/chat/chatAvatar';
+import { Link } from '../../components/link';
 
 interface ProfileProps {
 	className: string;
@@ -17,38 +17,39 @@ interface ProfileDataProps {
 }
 
 export class Profile extends Block {
-	dataProfile: ProfileDataProps;
-	constructor(props: ProfileProps) {
-		super('main', props);
-	}
+  dataProfile: ProfileDataProps;
 
-	init() {
-		this.dataProfile = this._getDataProfile()
+  constructor(props: ProfileProps) {
+    super('main', props);
+  }
 
-		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.image })
+  init() {
+    this.dataProfile = this._getDataProfile();
 
-		this.children.LinkChangeData = new Link({
-			className: ['link'],
-			label: "Изменить данные",
-			nameRoute: 'ProfileEdit',
-			arrow: true
-		})
-		this.children.LinkChangePassword = new Link({
-			className: ['link'],
-			label: "Изменить пароль",
-			nameRoute: 'profileEditPassword',
-			arrow: true
-		})
-		this.children.LinkExit = new Link({
-			className: ['link', 'link-red'],
-			label: "Выйти из аккаунта",
-			nameRoute: 'login',
-			arrow: true
-		})
-	}
+    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.image });
 
-	render() {
-		return `
+    this.children.LinkChangeData = new Link({
+      className: ['link'],
+      label: 'Изменить данные',
+      nameRoute: 'ProfileEdit',
+      arrow: true,
+    });
+    this.children.LinkChangePassword = new Link({
+      className: ['link'],
+      label: 'Изменить пароль',
+      nameRoute: 'profileEditPassword',
+      arrow: true,
+    });
+    this.children.LinkExit = new Link({
+      className: ['link', 'link-red'],
+      label: 'Выйти из аккаунта',
+      nameRoute: 'login',
+      arrow: true,
+    });
+  }
+
+  render() {
+    return `
     	<div class="card card-profile">
   		  {{{ ChatAvatar}}}
   		  <div class="flex flex-column flex-around" style="margin-left: 20px;">
@@ -83,18 +84,18 @@ export class Profile extends Block {
 				{{{LinkChangePassword}}}
 				{{{LinkExit}}}
   		</div>`;
-	}
+  }
 
-	_getDataProfile() {
-		const data: any = {
-			image: 'https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg',
-			name: 'Антон',
-			surname: 'Попов',
-			chat_name: 'Антон',
-			phone: '+7 (909) 643 34 43',
-			email: 'keks_practicum@gmail.com',
-			login: 'keks'
-		}
-		return data
-	}
+  _getDataProfile() {
+    const data: any = {
+      image: 'https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg',
+      name: 'Антон',
+      surname: 'Попов',
+      chat_name: 'Антон',
+      phone: '+7 (909) 643 34 43',
+      email: 'keks_practicum@gmail.com',
+      login: 'keks',
+    };
+    return data;
+  }
 }

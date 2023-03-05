@@ -1,5 +1,5 @@
-import { Block, ChatsFn } from '../../utils/';
-import { ChatBar } from "../../components/chat/chatBar/";
+import { Block, ChatsFn } from '../../utils';
+import { ChatBar } from '../../components/chat/chatBar';
 import { ChatMessage } from '../../components/chat/ChatMessage';
 
 interface ChatProps {
@@ -8,51 +8,47 @@ interface ChatProps {
 }
 
 export class Chat extends Block {
-	constructor(props: ChatProps) {
-		super('main', props);
-	}
+  constructor(props: ChatProps) {
+    super('main', props);
+  }
 
-	init() {
-		this.children.ChatBar = new ChatBar({
-			className: ["chat-bar"],
-			events: {
-				click: () => {
-					this.setProps(
-						//@ts-ignore
-						this.props.isOpenChat = true
-					)
-				}
-			}
-		})
+  init() {
+    this.children.ChatBar = new ChatBar({
+      className: ['chat-bar'],
+      events: {
+        click: () => {
+          this.setProps(
+            // @ts-ignore
+            this.props.isOpenChat = true,
+          );
+        },
+      },
+    });
 
-		this.children.ChatMessage = this.getComponentChat();
-	}
+    this.children.ChatMessage = this.getComponentChat();
+  }
 
-	render() {
-		return `<div class="chat">{{{ChatBar}}} {{{ChatMessage}}}</div>`;
-	}
+  render() {
+    return `<div class="chat">{{{ChatBar}}} {{{ChatMessage}}}</div>`;
+  }
 
-	getComponentChat() {
-		if (ChatsFn.currentChat) {
-			return new ChatMessage({
-				className: ["chat-message", 'flex', 'flex-center'],
-				currentChat: ChatsFn.currentChat
-			})
-		} else {
-			return new ChatMessage({
-				className: ["chat-message", 'flex', 'flex-center'],
-				currentChat: 'Выберите чат'
-			})
-		}
+  getComponentChat() {
+    if (ChatsFn.currentChat) {
+      return new ChatMessage({
+        className: ['chat-message', 'flex', 'flex-center'],
+        currentChat: ChatsFn.currentChat,
+      });
+    }
+    return new ChatMessage({
+      className: ['chat-message', 'flex', 'flex-center'],
+      currentChat: 'Выберите чат',
+    });
+  }
 
-	}
+  // // @ts-ignore
+  protected componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
+    this.children.ChatMessage = this.getComponentChat();
 
-	// // @ts-ignore
-	protected componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
-		this.children.ChatMessage = this.getComponentChat();
-
-		return true;
-	}
-
-
+    return true;
+  }
 }

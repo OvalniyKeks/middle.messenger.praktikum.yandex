@@ -1,6 +1,6 @@
 import { Block } from '../../../utils';
-import { ChatBarAvatar } from '../../../components/chat/chatAvatar'
-import { Button } from '../../../components/button'
+import { ChatBarAvatar } from '../../../components/chat/chatAvatar';
+import { Button } from '../../../components/button';
 
 interface ProfileProps {
 	className: string;
@@ -17,26 +17,27 @@ interface ProfileDataProps {
 }
 
 export class ProfileEdit extends Block {
-	dataProfile: ProfileDataProps;
-	constructor(props: ProfileProps) {
-		super('main', props);
-	}
+  dataProfile: ProfileDataProps;
 
-	init() {
-		this.dataProfile = this._getDataProfile()
+  constructor(props: ProfileProps) {
+    super('main', props);
+  }
 
-		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.image })
+  init() {
+    this.dataProfile = this._getDataProfile();
 
-		this.children.ButtonSave = new Button({
-			className: ['button'],
-			label: "Сохранить",
-            type: 'submit',
-            name: 'save'
-		})
-	}
+    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.image });
 
-	render() {
-		return `
+    this.children.ButtonSave = new Button({
+      className: ['button'],
+      label: 'Сохранить',
+      type: 'submit',
+      name: 'save',
+    });
+  }
+
+  render() {
+    return `
     	<div class="card card-profile">
   		  {{{ ChatAvatar}}}
   		  <div class="flex flex-column flex-around" style="margin-left: 20px;">
@@ -69,18 +70,18 @@ export class ProfileEdit extends Block {
   		<div class="card card-profile__action">
   		  {{{ButtonSave}}}
   		</div>`;
-	}
+  }
 
-	_getDataProfile() {
-		const data: any = {
-			image: 'https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg',
-			name: 'Антон',
-			surname: 'Попов',
-			chat_name: 'Антон',
-			phone: '+7 (909) 643 34 43',
-			email: 'keks_practicum@gmail.com',
-			login: 'keks'
-		}
-		return data
-	}
+  _getDataProfile() {
+    const data: any = {
+      image: 'https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg',
+      name: 'Антон',
+      surname: 'Попов',
+      chat_name: 'Антон',
+      phone: '+7 (909) 643 34 43',
+      email: 'keks_practicum@gmail.com',
+      login: 'keks',
+    };
+    return data;
+  }
 }

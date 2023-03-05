@@ -4,7 +4,6 @@
 // // import {ChatListPerson} from "../chatListPerson";
 // // import {CHATS} from "../../../../static/data/data";
 
-
 // interface ChatViewProps {
 // 	className: Array<string>;
 // 	isChat: any;

@@ -1,4 +1,4 @@
-import { Block, FormFn, Router } from '../../utils/';
+import { Block, FormFn, Router } from '../../utils';
 import { FormRegister } from '../../components/form/register';
 
 interface RegisterProps {
@@ -6,33 +6,32 @@ interface RegisterProps {
 }
 
 export class Register extends Block {
-	constructor(props: RegisterProps) {
-		super('main', props);
-	}
+  constructor(props: RegisterProps) {
+    super('main', props);
+  }
 
-	init() {
-
-		this.children.FormRegister = new FormRegister({
-			name: 'register',
-			className: ['form-register' , 'form'], events: {
-				submit: (event: SubmitEvent) => {
+  init() {
+    this.children.FormRegister = new FormRegister({
+      name: 'register',
+      className: ['form-register', 'form'],
+      events: {
+        submit: (event: SubmitEvent) => {
 					event!.preventDefault();
-					const resultCheck = FormFn.checkForm('register')
+					const resultCheck = FormFn.checkForm('register');
 					if (resultCheck) {
-						console.log(FormFn.getFields('register'))
-						Router.push('chat')
+					  console.log(FormFn.getFields('register'));
+					  Router.push('chat');
 					}
-				}
-			}
-		})
+        },
+      },
+    });
+  }
 
-	}
-
-	render() {
-		return `
+  render() {
+    return `
     <div class="card">
 			{{{FormRegister}}}
     </div>
     `;
-	}
+  }
 }

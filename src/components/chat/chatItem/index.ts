@@ -1,5 +1,5 @@
-import { Block } from '../../../utils/';
-import { ChatBarAvatar } from '../chatAvatar'
+import { Block } from '../../../utils';
+import { ChatBarAvatar } from '../chatAvatar';
 
 interface ChatItemProps {
 	className: Array<string>;
@@ -10,18 +10,18 @@ interface ChatItemProps {
 }
 
 export class ChatItem extends Block {
-	constructor(props: ChatItemProps) {
-		super('div', props);
-	}
+  constructor(props: ChatItemProps) {
+    super('div', props);
+  }
 
-	init() {
-		this.props.className.forEach((element: string) => this.element!.classList.add(element));
+  init() {
+    this.props.className.forEach((element: string) => this.element!.classList.add(element));
 
-		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar', this.props.chatData.color], src: this.props.chatData.image })
-	}
+    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar', this.props.chatData.color], src: this.props.chatData.image });
+  }
 
-	render() {
-		return `  
+  render() {
+    return `  
       <div class="chat-item__left">
         {{{ChatAvatar}}}
         <div class="chat-item__column" style="margin-left: 18px">
@@ -35,5 +35,5 @@ export class ChatItem extends Block {
           <div class="chat-item__unread">${this.props.chatData.countUnreadMessages}</div>
         {{/if}}
       </div>`;
-	}
+  }
 }
