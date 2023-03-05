@@ -1,7 +1,7 @@
 import { Block, ChatsFn } from '../../utils';
 import { ChatBar } from '../../components/chat/chatBar';
-import { ChatList } from '../../components/chat/ChatList';
-import { ChatMessage } from '../../components/chat/ChatMessage';
+import { ChatList } from '../../components/chat/chatList';
+import { ChatMessage } from '../../components/chat/chatMessage';
 
 interface ChatProps {
 	className: string;
