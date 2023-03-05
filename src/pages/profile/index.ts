@@ -24,6 +24,8 @@ export class Profile extends Block {
   }
 
   init() {
+	this.element!.classList.add('page', 'profile', 'flex', 'flex-center', 'flex-column')
+
     this.dataProfile = this._getDataProfile();
 
     this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.image });
@@ -37,7 +39,7 @@ export class Profile extends Block {
     this.children.LinkChangePassword = new Link({
       className: ['link'],
       label: 'Изменить пароль',
-      nameRoute: 'profileEditPassword',
+      nameRoute: 'ProfileEditPassword',
       arrow: true,
     });
     this.children.LinkExit = new Link({

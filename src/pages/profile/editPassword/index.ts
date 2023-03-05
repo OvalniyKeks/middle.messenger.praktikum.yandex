@@ -1,6 +1,6 @@
-import { Block } from '../../../utils';
+import { Block, FormFn, Router } from '../../../utils';
 import { ChatBarAvatar } from '../../../components/chat/chatAvatar';
-import { Button } from '../../../components/button';
+import { FormEditProfilePassword } from '../../../components/form/editprofilepassword';
 
 interface ProfileProps {
 	className: string;
@@ -17,49 +17,58 @@ interface ProfileDataProps {
 }
 
 export class ProfileEditPassword extends Block {
-  dataProfile: ProfileDataProps;
+	dataProfile: ProfileDataProps;
 
-  constructor(props: ProfileProps) {
-    super('main', props);
-  }
+	constructor(props: ProfileProps) {
+		super('main', props);
+	}
 
-  init() {
-    this.dataProfile = this._getDataProfile();
+	init() {
+		this.element!.classList.add('page', 'profile', 'flex', 'flex-center', 'flex-column')
 
-    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.image });
+		this.dataProfile = this._getDataProfile();
 
-    this.children.ButtonSave = new Button({
-      className: ['button'],
-      label: 'Сохранить',
-      type: 'submit',
-      name: 'save',
-    });
-  }
+		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.image });
 
-  render() {
-    return `
+		this.children.FormEditProfilePassword = new FormEditProfilePassword({
+		  name: 'editprofilepasword',
+		  className: ['form'],
+		  events: {
+		    submit: (event: SubmitEvent) => {
+					event!.preventDefault();
+					const resultCheck = FormFn.checkForm('editprofilepassword');
+					if (resultCheck) {
+					  console.log(FormFn.getFields('editprofilepassword'));
+					  Router.push('profile');
+					}
+		    },
+		  },
+		});
+	}
+
+	render() {
+		return `
     	<div class="card card-profile">
-        {{ChatBarAvatar}}
-        <div class="flex flex-column flex-around" style="margin-left: 20px;">
-          <div class="card-profile__name">Антон</div>
-          <div class="card-profile__phone">+7 (909) 643 34 43</div>
-        </div>
-      </div>
-      <div class="card">
-        
-      </div>`;
-  }
+  		  {{{ ChatAvatar}}}
+  		  <div class="flex flex-column flex-around" style="margin-left: 20px;">
+  		    <div class="card-profile__name">${this.dataProfile.name}</div>
+  		    <div class="card-profile__phone">${this.dataProfile.phone}</div>
+  		  </div>
+  		</div>
+  		<div class="card">{{{FormEditProfilePassword}}}</div>
+			`;
+	}
 
-  _getDataProfile() {
-    const data: any = {
-      image: 'https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg',
-      name: 'Антон',
-      surname: 'Попов',
-      chat_name: 'Антон',
-      phone: '+7 (909) 643 34 43',
-      email: 'keks_practicum@gmail.com',
-      login: 'keks',
-    };
-    return data;
-  }
+	_getDataProfile() {
+		const data: any = {
+			image: 'https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg',
+			name: 'Антон',
+			surname: 'Попов',
+			chat_name: 'Антон',
+			phone: '+7 (909) 643 34 43',
+			email: 'keks_practicum@gmail.com',
+			login: 'keks',
+		};
+		return data;
+	}
 }

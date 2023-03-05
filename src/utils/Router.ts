@@ -18,8 +18,8 @@ interface Route {
 const routes: Array<Route> = [
   { name: 'Chat', path: '/', component: Chat },
   { name: 'Profile', path: '/profile', component: Profile },
-  { name: 'ProfileEdit', path: '/profile/edit', component: ProfileEdit },
-  { name: 'ProfileEditPassword', path: '/profile/edit/password', component: ProfileEditPassword },
+  { name: 'ProfileEdit', path: '/edit', component: ProfileEdit },
+  { name: 'ProfileEditPassword', path: '/password', component: ProfileEditPassword },
   { name: 'Login', path: '/login', component: Login },
   { name: 'Register', path: '/register', component: Register },
 
