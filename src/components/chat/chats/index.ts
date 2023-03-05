@@ -8,7 +8,7 @@ interface ChatListProps {
 	}
 }
 
-export class ChatList extends Block {
+export class ChatsList extends Block {
   constructor(props: ChatListProps) {
     super('div', props);
   }
