@@ -17,14 +17,14 @@ interface ProfileDataProps {
 }
 
 export class ProfileEditPassword extends Block {
-	dataProfile: ProfileDataProps;
+  dataProfile: ProfileDataProps;
 
-	constructor(props: ProfileProps) {
-		super('main', props);
-	}
+  constructor(props: ProfileProps) {
+    super('main', props);
+  }
 
-	init() {
-		this.element!.classList.add('page', 'profile', 'flex', 'flex-center', 'flex-column')
+  init() {
+		this.element!.classList.add('page', 'profile', 'flex', 'flex-center', 'flex-column');
 
 		this.dataProfile = this._getDataProfile();
 
@@ -44,10 +44,10 @@ export class ProfileEditPassword extends Block {
 		    },
 		  },
 		});
-	}
+  }
 
-	render() {
-		return `
+  render() {
+    return `
     	<div class="card card-profile">
   		  {{{ ChatAvatar}}}
   		  <div class="flex flex-column flex-around" style="margin-left: 20px;">
@@ -57,18 +57,18 @@ export class ProfileEditPassword extends Block {
   		</div>
   		<div class="card">{{{FormEditProfilePassword}}}</div>
 			`;
-	}
+  }
 
-	_getDataProfile() {
-		const data: any = {
-			image: 'https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg',
-			name: 'Антон',
-			surname: 'Попов',
-			chat_name: 'Антон',
-			phone: '+7 (909) 643 34 43',
-			email: 'keks_practicum@gmail.com',
-			login: 'keks',
-		};
-		return data;
-	}
+  _getDataProfile() {
+    const data: any = {
+      image: 'https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg',
+      name: 'Антон',
+      surname: 'Попов',
+      chat_name: 'Антон',
+      phone: '+7 (909) 643 34 43',
+      email: 'keks_practicum@gmail.com',
+      login: 'keks',
+    };
+    return data;
+  }
 }

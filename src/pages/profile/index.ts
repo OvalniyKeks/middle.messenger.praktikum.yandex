@@ -24,30 +24,30 @@ export class Profile extends Block {
   }
 
   init() {
-	this.element!.classList.add('page', 'profile', 'flex', 'flex-center', 'flex-column')
+	this.element!.classList.add('page', 'profile', 'flex', 'flex-center', 'flex-column');
 
-    this.dataProfile = this._getDataProfile();
+	this.dataProfile = this._getDataProfile();
 
-    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.image });
+	this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.image });
 
-    this.children.LinkChangeData = new Link({
-      className: ['link'],
-      label: 'Изменить данные',
-      nameRoute: 'ProfileEdit',
-      arrow: true,
-    });
-    this.children.LinkChangePassword = new Link({
-      className: ['link'],
-      label: 'Изменить пароль',
-      nameRoute: 'ProfileEditPassword',
-      arrow: true,
-    });
-    this.children.LinkExit = new Link({
-      className: ['link', 'link-red'],
-      label: 'Выйти из аккаунта',
-      nameRoute: 'login',
-      arrow: true,
-    });
+	this.children.LinkChangeData = new Link({
+	  className: ['link'],
+	  label: 'Изменить данные',
+	  nameRoute: 'ProfileEdit',
+	  arrow: true,
+	});
+	this.children.LinkChangePassword = new Link({
+	  className: ['link'],
+	  label: 'Изменить пароль',
+	  nameRoute: 'ProfileEditPassword',
+	  arrow: true,
+	});
+	this.children.LinkExit = new Link({
+	  className: ['link', 'link-red'],
+	  label: 'Выйти из аккаунта',
+	  nameRoute: 'login',
+	  arrow: true,
+	});
   }
 
   render() {

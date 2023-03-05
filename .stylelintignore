@@ -3,4 +3,4 @@ dist/
 .parcel-cache/
 static/
 !*.css
-!*.sass
+*.sass

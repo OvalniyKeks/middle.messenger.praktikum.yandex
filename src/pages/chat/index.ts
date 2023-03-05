@@ -14,7 +14,7 @@ export class Chat extends Block {
   }
 
   init() {
-    this.children.ChatBar = new ChatBar({className: ['chat-bar__top'],});
+    this.children.ChatBar = new ChatBar({ className: ['chat-bar__top'] });
     this.children.ChatList = new ChatsList({
       className: ['chat-bar__items'],
       events: {
