@@ -25,7 +25,6 @@ export class ChatMessage extends Block {
   init() {
     this.props.className.forEach((element: string) => this.element!.classList.add(element));
 
-    console.log(this.props.currentChat);
     this.children.InputFIle = new Input({ className: ['chat-message__input-file'], type: 'file', name: 'file' });
     this.children.InputMessage = new Input({ className: ['input-field', 'chat-message__input-text'], type: 'text', name: 'message' });
     this.children.ButtonSend = new Button({ className: ['chat-message__input-send'], type: 'submit', name: 'send' });

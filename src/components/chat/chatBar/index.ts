@@ -66,24 +66,4 @@ export class ChatBar extends Block {
       },
     }));
   }
-
-  //   private createChats() {
-  //     return CHATS.map(data => {
-  //       return new ChatListPerson({
-  //         namePerson: data.namePerson,
-  //         textPerson: data.textPerson,
-  //         notification: data.notification,
-  //         time: data.time,
-  //         id: data.id,
-  //         isReaden: data.isReaden,
-  //         className: ["chat-list__person"],
-  //         events: {
-  //           click: () => {
-  //             choseChat(data.id)
-  //             colorChosenChat();
-  //           }
-  //         }
-  //       });
-  //     })
-  //   }
 }
