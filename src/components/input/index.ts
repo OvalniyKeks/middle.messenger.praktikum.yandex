@@ -5,6 +5,7 @@ interface InputProps {
 	type: string;
 	name: string;
 	placeholder?: string;
+	id?: string;
 	events?: {
 		blur: () => void;
 		focus: () => void;
@@ -26,6 +27,7 @@ export class Input extends Block {
 		}
 
 		this.element!.setAttribute('type', this.props.type);
+		this.element!.setAttribute('id', this.props.id);
 
 		this.element!.classList.add('input-field');
 

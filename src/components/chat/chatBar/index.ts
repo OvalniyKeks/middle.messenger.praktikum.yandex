@@ -1,6 +1,5 @@
 import { Block, ChatsFn } from '../../../utils';
 import { ChatBarAvatar } from '../chatAvatar';
-import { ChatItem } from '../chatItem';
 import { Link } from '../../link';
 import { Input } from '../../input';
 
@@ -35,13 +34,13 @@ export class ChatBar extends Block {
   render() {
     return `
     <div class="chat-bar__profile">
-			  <div class="chat-bar__profile-inner">
-				{{{ChatAvatar}}}
+			<div class="chat-bar__profile-inner">
+        {{{ChatAvatar}}}
 				<div class="chat-bar__profile-title">Антон</div>
-			  </div>
-			  {{{ Link}}}
 			</div>
-			{{{Input}}}
+			{{{ Link}}}
+		</div>
+		{{{Input}}}
 		`;
   }
 }
