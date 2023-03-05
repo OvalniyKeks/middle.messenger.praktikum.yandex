@@ -2,10 +2,10 @@ import { Block, ChatsFn } from '../../../utils';
 import { ChatItem } from '../chatItem';
 
 interface ChatListProps {
-	className: Array<string>;
-	events?: {
-		click: () => void;
-	}
+  className: Array<string>;
+  events?: {
+    click: () => void;
+  }
 }
 
 export class ChatsList extends Block {
@@ -20,11 +20,9 @@ export class ChatsList extends Block {
   }
 
   render() {
-    return `
-    {{#each chats}}
-				{{{ this }}}
-			{{/each}}
-	  `;
+    return `{{#each chats}}
+      {{{ this }}}
+    {{/each}}`;
   }
 
   _getChats() {

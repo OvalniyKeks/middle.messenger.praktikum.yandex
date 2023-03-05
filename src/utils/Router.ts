@@ -10,9 +10,9 @@ import { Register } from '../pages/register';
 import { Error } from '../pages/error';
 
 interface Route {
-    name: string,
-    path: string,
-    component: any
+  name: string,
+  path: string,
+  component: any
 }
 
 const routes: Array<Route> = [

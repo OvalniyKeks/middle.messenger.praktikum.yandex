@@ -33,7 +33,7 @@ export class FormEditProfile extends Block {
           className: ['form-input'], type: 'text', name: 'second_name', placeholder: 'Фамилия',
         });
         this.children.InputChatName = new Input({
-          className: ['form-input'], type: 'text', name: 'first_name', placeholder: 'Имя в чате',
+          className: ['form-input'], type: 'text', name: 'display_name', placeholder: 'Имя в чате',
         });
         this.children.ButtonSubmit = new Button({
           className: ['form-button'], type: 'submit', name: 'submit', label: 'Сохранить',

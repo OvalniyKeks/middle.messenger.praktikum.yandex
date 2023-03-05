@@ -47,13 +47,13 @@ const Chats: Array<chat> = [
 ];
 
 interface chat {
-	_id: string,
-	image: string,
-	name: string,
-	lastMessage: string,
-	timeOrDate: string,
-	countUnreadMessages: number,
-	selected: boolean
+  _id: string,
+  image: string,
+  name: string,
+  lastMessage: string,
+  timeOrDate: string,
+  countUnreadMessages: number,
+  selected: boolean
 }
 
 export class ChatsFn {

@@ -1,4 +1,4 @@
-import { Block, ChatsFn } from '../../../utils';
+import { Block } from '../../../utils';
 import { ChatBarAvatar } from '../chatAvatar';
 import { Link } from '../../link';
 import { Input } from '../../input';

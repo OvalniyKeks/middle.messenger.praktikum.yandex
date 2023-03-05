@@ -23,11 +23,11 @@ class Block<P extends Record<string, any> = any> {
   public children: Record<string, Block | Block[]>;
 
   /** JSDoc
-	 * @param {string} tagName
-	 * @param propsWithChildren
-	 *
-	 * @returns {void}
-	 */
+   * @param {string} tagName
+   * @param propsWithChildren
+   *
+   * @returns {void}
+   */
   constructor(tagName = 'div', propsWithChildren: P) {
     const eventBus = new EventBus();
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
@@ -122,6 +122,7 @@ class Block<P extends Record<string, any> = any> {
   }
 
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
@@ -142,7 +143,7 @@ class Block<P extends Record<string, any> = any> {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName: string) => {
-			this._element!.removeEventListener(eventName, events[eventName]);
+      this._element!.removeEventListener(eventName, events[eventName]);
     });
   }
 
@@ -153,11 +154,11 @@ class Block<P extends Record<string, any> = any> {
 
     this._removeEvents();
 
-		this._element!.innerHTML = '';
+    this._element!.innerHTML = '';
 
-		this._element!.append(fragment);
+    this._element!.append(fragment);
 
-		this._addEvents();
+    this._addEvents();
   }
 
   protected compile(template: string, context: any) {
@@ -238,11 +239,11 @@ class Block<P extends Record<string, any> = any> {
   }
 
   show() {
-		this.getContent()!.style.display = 'block';
+    this.getContent()!.style.display = 'block';
   }
 
   hide() {
-		this.getContent()!.style.display = 'none';
+    this.getContent()!.style.display = 'none';
   }
 }
 
