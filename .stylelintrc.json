@@ -1,18 +1,1 @@
-{
-  "extends": "stylelint-config-standard",
-  "plugins": [
-    "stylelint-scss"
-  ],
-  "custormSyntax": "postcss-scss",
-  "rules": {
-    "selector-class-pattern": [
-      "^([a-z][a-z0-9]*)([-_a-z0-9]+)*$",
-      {
-        "message": "Wrong selector class name"
-      }
-    ]
-  },
-  "ignoreFiles": [
-    "dist/*"
-  ]
-}
+{ "extends": ["stylelint-config-standard"] }

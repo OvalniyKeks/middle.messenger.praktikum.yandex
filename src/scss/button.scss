@@ -1,0 +1,12 @@
+.button {
+  position: relative;
+  border: none;
+  padding: 0;
+  background: $link;
+  width: 100%;
+  height: 54px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: $accent_text_link;
+  font-size: 20px;
+}
