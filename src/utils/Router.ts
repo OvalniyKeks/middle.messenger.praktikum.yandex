@@ -16,12 +16,12 @@ interface Route {
 }
 
 const routes: Array<Route> = [
-  { name: 'Chat', path: '/', component: Chat },
+  { name: 'Chat', path: '/messenger', component: Chat },
   { name: 'Profile', path: '/profile', component: Profile },
   { name: 'ProfileEdit', path: '/edit', component: ProfileEdit },
   { name: 'ProfileEditPassword', path: '/password', component: ProfileEditPassword },
-  { name: 'Login', path: '/login', component: Login },
-  { name: 'Register', path: '/register', component: Register },
+  { name: 'Login', path: '/', component: Login },
+  { name: 'Register', path: '/sign-up', component: Register },
 
   { name: '404', path: '/404', component: Error },
 ];
@@ -32,7 +32,7 @@ export class Router {
     this._onListenerUrl();
   }
 
-  static _checkCurrentUrl(): void {
+  private static _checkCurrentUrl(): void {
     const path = window.location.pathname;
     const currentRoute = this._getRoute(path);
     Router.push(currentRoute.name);
@@ -45,11 +45,18 @@ export class Router {
     renderDom(routeObj);
   }
 
-  static _setRoute(route: Route): void {
-    window.history.pushState({ name: route.name }, route.name, window.location.origin + route.path);
+  private static _setRoute(route: Route): void {
+    const path = window.location.origin + route.path
+    const name = route.name
+
+    if (window.history.state?.name !== route.name) {
+      window.history.pushState({ name: name }, name, path);
+    } else {
+      window.history.replaceState({ name: name }, name, path);
+    }
   }
 
-  static _getRoute(searchParameter: string): any {
+  private static _getRoute(searchParameter: string): any {
     const routeObj = routes.find((item) => item.name.toLowerCase() === searchParameter.toLowerCase() || item.path.toLowerCase() === searchParameter.toLowerCase());
     if (routeObj) {
       return routeObj;
@@ -57,7 +64,7 @@ export class Router {
     return routes.find((item) => item.name === '404');
   }
 
-  static _onListenerUrl(): void {
+  private static _onListenerUrl(): void {
     window.addEventListener('popstate', (event) => {
       if (event?.state?.name) {
         const component = Router._getRoute(event.state.name);
