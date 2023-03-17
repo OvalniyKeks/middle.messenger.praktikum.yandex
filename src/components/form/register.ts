@@ -21,28 +21,28 @@ export class FormRegister extends Block {
         this.element!.setAttribute('data-id', this.props.name);
 
         this.children.InputEmail = new Input({
-          className: ['form-input'], type: 'email', name: 'email', placeholder: 'Email',
+        	className: ['form-input'], type: 'email', name: 'email', placeholder: 'Email',
         });
         this.children.InputLogin = new Input({
-          className: ['form-input'], type: 'text', name: 'login', placeholder: 'Логин',
+        	className: ['form-input'], type: 'text', name: 'login', placeholder: 'Логин',
         });
         this.children.InputName = new Input({
-          className: ['form-input'], type: 'text', name: 'first_name', placeholder: 'Имя',
+        	className: ['form-input'], type: 'text', name: 'first_name', placeholder: 'Имя',
         });
         this.children.InputSurname = new Input({
-          className: ['form-input'], type: 'text', name: 'second_name', placeholder: 'Фамилия',
+        	className: ['form-input'], type: 'text', name: 'second_name', placeholder: 'Фамилия',
         });
         this.children.InputPhone = new Input({
-          className: ['form-input'], type: 'tel', name: 'phone', placeholder: 'Телефон',
+        	className: ['form-input'], type: 'tel', name: 'phone', placeholder: 'Телефон',
         });
         this.children.InputPassword = new Input({
-          className: ['form-input'], type: 'password', name: 'password', placeholder: 'Пароль',
+        	className: ['form-input'], type: 'password', name: 'password', placeholder: 'Пароль',
         });
         this.children.InputRepeatPassword = new Input({
-          className: ['form-input'], type: 'password', name: 'repeatPassword', placeholder: 'Повторите пароль',
+        	className: ['form-input'], type: 'password', name: 'repeatPassword', placeholder: 'Повторите пароль',
         });
         this.children.ButtonSubmit = new Button({
-          className: ['form-button'], type: 'submit', name: 'submit', label: 'Зарегистрироваться',
+        	className: ['form-button'], type: 'submit', name: 'submit', label: 'Зарегистрироваться',
         });
   }
 

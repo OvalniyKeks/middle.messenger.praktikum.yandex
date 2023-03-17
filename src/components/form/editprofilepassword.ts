@@ -20,13 +20,13 @@ export class FormEditProfilePassword extends Block {
 
         this.element!.setAttribute('data-id', this.props.name);
         this.children.InputPassword = new Input({
-          className: ['form-input'], type: 'password', name: 'password', placeholder: 'Пароль',
+        	className: ['form-input'], type: 'password', name: 'password', placeholder: 'Пароль',
         });
         this.children.InputRepeatPassword = new Input({
-          className: ['form-input'], type: 'password', name: 'repeatPassword', placeholder: 'Повторите пароль',
+        	className: ['form-input'], type: 'password', name: 'repeatPassword', placeholder: 'Повторите пароль',
         });
         this.children.ButtonSubmit = new Button({
-          className: ['form-button'], type: 'submit', name: 'submit', label: 'Сохранить',
+        	className: ['form-button'], type: 'submit', name: 'submit', label: 'Сохранить',
         });
   }
 

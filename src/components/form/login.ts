@@ -21,13 +21,13 @@ export class FormLogin extends Block {
         this.element!.setAttribute('data-id', this.props.name);
 
         this.children.InputLogin = new Input({
-          className: ['form-input'], type: 'text', name: 'login', placeholder: 'Логин',
+        	className: ['form-input'], type: 'text', name: 'login', placeholder: 'Логин',
         });
         this.children.InputPassword = new Input({
-          className: ['form-input'], type: 'password', name: 'password', placeholder: 'Пароль',
+        	className: ['form-input'], type: 'password', name: 'password', placeholder: 'Пароль',
         });
         this.children.ButtonSubmit = new Button({
-          className: ['form-button'], type: 'submit', name: 'submit', label: 'Войти',
+        	className: ['form-button'], type: 'submit', name: 'submit', label: 'Войти',
         });
   }
 

@@ -21,22 +21,22 @@ export class FormEditProfile extends Block {
         this.element!.setAttribute('data-id', this.props.name);
 
         this.children.InputEmail = new Input({
-          className: ['form-input'], type: 'email', name: 'email', placeholder: 'Email',
+        	className: ['form-input'], type: 'email', name: 'email', placeholder: 'Email',
         });
         this.children.InputLogin = new Input({
-          className: ['form-input'], type: 'text', name: 'login', placeholder: 'Логин',
+        	className: ['form-input'], type: 'text', name: 'login', placeholder: 'Логин',
         });
         this.children.InputName = new Input({
-          className: ['form-input'], type: 'text', name: 'first_name', placeholder: 'Имя',
+        	className: ['form-input'], type: 'text', name: 'first_name', placeholder: 'Имя',
         });
         this.children.InputSurname = new Input({
-          className: ['form-input'], type: 'text', name: 'second_name', placeholder: 'Фамилия',
+        	className: ['form-input'], type: 'text', name: 'second_name', placeholder: 'Фамилия',
         });
         this.children.InputChatName = new Input({
-          className: ['form-input'], type: 'text', name: 'display_name', placeholder: 'Имя в чате',
+        	className: ['form-input'], type: 'text', name: 'display_name', placeholder: 'Имя в чате',
         });
         this.children.ButtonSubmit = new Button({
-          className: ['form-button'], type: 'submit', name: 'submit', label: 'Сохранить',
+        	className: ['form-button'], type: 'submit', name: 'submit', label: 'Сохранить',
         });
   }
 
