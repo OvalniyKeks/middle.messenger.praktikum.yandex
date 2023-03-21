@@ -1,5 +1,7 @@
 import { Block, FormFn, Router } from '../../utils';
 import { FormRegister } from '../../components/form/register';
+import { SignupData } from '../../api/AuthApi';
+import AuthController from '../../controllers/AuthController';
 
 interface RegisterProps {
 	className: string;
@@ -21,11 +23,26 @@ export class Register extends Block {
 					event!.preventDefault();
 					const resultCheck = FormFn.checkForm('register');
 					if (resultCheck) {
-					  console.log(FormFn.getFields('register'));
-					  Router.push('chat');
+					  this.onSubmit()
 					}
 		    },
 		  },
+		});
+  }
+
+	onSubmit() {
+    
+		let data: any = {}
+    FormFn.getFields('register').map(input => {
+			// @ts-ignore
+			data[input.name] = input.value
+		});
+
+    AuthController.signup(data as SignupData).then(res => {
+			//@ts-ignore
+			if (res.id) {
+				Router.push('chat');
+			}
 		});
   }
 

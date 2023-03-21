@@ -20,10 +20,10 @@ export class Link extends Block {
 
     if (!this.props.events) {
       this.props.events = {};
+      this.props.events.click = () => {
+        Router.push(this.props.nameRoute);
+      };
     }
-    this.props.events.click = () => {
-      Router.push(this.props.nameRoute);
-    };
   }
 
   render() {

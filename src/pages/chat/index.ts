@@ -2,10 +2,11 @@ import { Block, ChatsFn } from '../../utils';
 import { ChatBar } from '../../components/chat/chatBar';
 import { ChatsList } from '../../components/chat/chats';
 import { ChatMessage } from '../../components/chat/chatMessage';
+import { withStore } from '../../utils/Store';
 
 interface ChatProps {
-	className: string;
-	isOpenChat?: boolean
+  className: string;
+  isOpenChat?: boolean
 }
 
 export class Chat extends Block {
@@ -14,7 +15,7 @@ export class Chat extends Block {
   }
 
   init() {
-    this.children.ChatBar = new ChatBar({ className: ['chat-bar__top'] });
+    this.children.ChatBar = new ChatBarComponent({ className: ['chat-bar__top'] });
     this.children.ChatList = new ChatsList({
       className: ['chat-bar__items'],
       events: {
@@ -59,3 +60,9 @@ export class Chat extends Block {
     return true;
   }
 }
+
+export const ChatBarComponent = withStore((state) => {
+  return { user: state.user }
+
+  // @ts-ignore
+})(ChatBar);

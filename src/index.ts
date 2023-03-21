@@ -1,5 +1,5 @@
-import { Router } from './utils';
+import { initApp } from "./utils";
 
-window.addEventListener('DOMContentLoaded', () => {
-  Router.init();
+window.addEventListener('DOMContentLoaded', async () => {
+  initApp()
 });

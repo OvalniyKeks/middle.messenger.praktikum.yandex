@@ -1,6 +1,8 @@
+
 export { default as Block } from './Block';
 export { default as renderDOM } from './renderDom';
-export { Router } from './Router';
+export { initApp } from './initApp';
 export { ChatsFn } from './ChatsFn';
-export { HTTPTransport } from './HttpTransport';
-export { FormFn } from './Form';
+export { Router } from './Router';
+export { FormFn } from './Form'
+export { Store } from './Store';
