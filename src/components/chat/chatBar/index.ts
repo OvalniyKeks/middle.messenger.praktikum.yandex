@@ -18,12 +18,6 @@ export class ChatBar extends Block {
     this.props.className.forEach((element: string) => this.element!.classList.add(element));
 
     this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props.user.avatar });
-    this.children.UserName = new Link({
-      className: ['chat-bar__profile-title'],
-      label: this.props.user.first_name,
-      nameRoute: 'profile',
-      arrow: true,
-    });
     this.children.Link = new Link({
       className: ['link'],
       label: 'Профиль',
@@ -41,7 +35,7 @@ export class ChatBar extends Block {
     <div class="chat-bar__profile">
 			<div class="chat-bar__profile-inner">
         {{{ChatAvatar}}}
-        <div class="chat-bar__profile-title">{{{UserName}}}</div>
+        <div class="chat-bar__profile-title">${this.props.user.display_name ?? this.props.user.first_name}</div>
 			</div>
 			{{{ Link}}}
 		</div>

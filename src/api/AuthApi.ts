@@ -14,7 +14,7 @@ export interface SignupData {
   phone: string;
 }
 
-interface User {
+export interface User {
   id: number;
   first_name: string;
   second_name: string;

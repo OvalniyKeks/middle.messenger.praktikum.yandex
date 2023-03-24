@@ -11,15 +11,16 @@ import { Error } from '../../pages/error';
 export interface Route {
   name: string,
   path: string,
+  auth: boolean,
   component: any
 }
 export const routes: Array<Route> = [
-  { name: 'Chat', path: '/messenger', component: Chat },
-  { name: 'Profile', path: '/profile', component: Profile },
-  { name: 'ProfileEdit', path: '/edit', component: ProfileEdit },
-  { name: 'ProfileEditPassword', path: '/password', component: ProfileEditPassword },
-  { name: 'Login', path: '/', component: Login },
-  { name: 'Register', path: '/sign-up', component: Register },
+  { name: 'Chat', path: '/messenger', auth: true, component: Chat },
+  { name: 'Profile', path: '/profile', auth: true, component: Profile },
+  { name: 'ProfileEdit', path: '/edit', auth: true, component: ProfileEdit },
+  { name: 'ProfileEditPassword', path: '/password', auth: true, component: ProfileEditPassword },
+  { name: 'Login', path: '/', auth: false, component: Login },
+  { name: 'Register', path: '/sign-up', auth: false, component: Register },
 
-  { name: '404', path: '/404', component: Error },
+  { name: '404', path: '/404', auth: false, component: Error },
 ];

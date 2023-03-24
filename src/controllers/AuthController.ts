@@ -25,9 +25,12 @@ export class AuthController {
 
   async signup(data: SignupData) {
     try {
-      await this.api.signup(data);
+      await this.api.signup(data).then(() => {
+        this.fetchUser().then(() => {
+          Router.push('Chat');
+        })
+      });
 
-      Router.push('Chat');
     } catch (e: any) {
       console.error(e.message);
     }
@@ -47,7 +50,9 @@ export class AuthController {
 
       await this.api.logout();
 
-      Router.push('Login');
+      Router.push('login')
+
+      store.set('user', null);
     } catch (e: any) {
       console.error(e.message);
     }

@@ -2,6 +2,7 @@ import { Block } from '../../utils';
 import { ChatBarAvatar } from '../../components/chat/chatAvatar';
 import { Link } from '../../components/link';
 import AuthController from '../../controllers/AuthController';
+import store, { withStore } from '../../utils/Store';
 
 interface ProfileProps {
 	className: string;
@@ -19,8 +20,7 @@ interface User {
 	display_name: string;
 }
 
-export class Profile extends Block {
-	dataProfile: User;
+export class ProfileBase extends Block {
 
 	constructor(props: ProfileProps) {
 		super('main', props);
@@ -29,10 +29,7 @@ export class Profile extends Block {
 	init() {
 		this.element!.classList.add('page', 'profile', 'flex', 'flex-center', 'flex-column');
 
-		// @ts-ignore
-		this.dataProfile = this._getDataProfile();
-
-		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.avatar });
+		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props.user.avatar });
 
 		this.children.LinkChangeData = new Link({
 			className: ['link'],
@@ -71,30 +68,30 @@ export class Profile extends Block {
     	<div class="card card-profile">
   		  {{{ ChatAvatar}}}
   		  <div class="flex flex-column flex-around" style="margin-left: 20px;">
-  		    <div class="card-profile__name">${this.dataProfile.display_name ?? this.dataProfile.first_name}</div>
-  		    <div class="card-profile__phone">${this.dataProfile.phone}</div>
+  		    <div class="card-profile__name">${this.props.user.display_name ?? this.props.user.first_name}</div>
+  		    <div class="card-profile__phone">${this.props.user.phone}</div>
   		  </div>
   		</div>
   		<div class="card card-profile__info">
 				<div class="card-profile__info-item">
 					<div class="card-profile__info-label">Почта</div>
-					<div class="card-profile__info-value">${this.dataProfile.email}</div>
+					<div class="card-profile__info-value">${this.props.user.email}</div>
 				</div>
 				<div class="card-profile__info-item">
 					<div class="card-profile__info-label">Логин</div>
-					<div class="card-profile__info-value">${this.dataProfile.login}</div>
+					<div class="card-profile__info-value">${this.props.user.login}</div>
 				</div>
 				<div class="card-profile__info-item">
 					<div class="card-profile__info-label">Имя</div>
-					<div class="card-profile__info-value">${this.dataProfile.first_name}</div>
+					<div class="card-profile__info-value">${this.props.user.first_name}</div>
 				</div>
 				<div class="card-profile__info-item">
 					<div class="card-profile__info-label">Фамилия</div>
-					<div class="card-profile__info-value">${this.dataProfile.first_name}</div>
+					<div class="card-profile__info-value">${this.props.user.first_name}</div>
 				</div>
 				<div class="card-profile__info-item">
 					<div class="card-profile__info-label">Имя в чате</div>
-					<div class="card-profile__info-value">${this.dataProfile.display_name}</div>
+					<div class="card-profile__info-value">${this.props.user.display_name}</div>
 				</div>
   		</div>
   		<div class="card card-profile__action">
@@ -103,9 +100,11 @@ export class Profile extends Block {
 				{{{LinkExit}}}
   		</div>`;
 	}
-
-	_getDataProfile() {
-		const data = AuthController.fetchUser()
-		return data;
-	}
 }
+
+
+export const Profile = withStore((state) => {
+	return {user: state.user} || {}
+
+	// @ts-ignore
+})(ProfileBase)

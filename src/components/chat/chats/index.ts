@@ -1,5 +1,8 @@
-import { Block, ChatsFn } from '../../../utils';
+import { Block } from '../../../utils';
+import { Button } from '../../button';
 import { ChatItem } from '../chatItem';
+import { Input } from '../../input';
+import ChatController from '../../../controllers/ChatController';
 
 interface ChatListProps {
   className: Array<string>;
@@ -16,26 +19,62 @@ export class ChatsList extends Block {
   init() {
     this.props.className.forEach((element: string) => this.element!.classList.add(element));
 
-    this.children.chats = this._getChats();
+    this.children.addChats = new Button({
+      className: ['button'],
+      label: 'Добавить чат',
+      name: 'add',
+      type: 'button',
+      events: {
+        click: () => {
+          // @ts-ignore
+          let title: any = document.getElementById('addNameChat').value
+          ChatController.create(title)
+        }
+      }
+    })
+
+    this.children.nameChat = new Input({
+      className: ['input-field'], type: 'text', name: 'nameChat', placeholder: 'Название чата', id: 'addNameChat'
+    });
   }
 
   render() {
-    return `{{#each chats}}
-      {{{ this }}}
-    {{/each}}`;
+    return `
+    {{#if isLoading}}
+      Загрузка...
+    {{else if chats}}
+      {{#each chats}}
+        {{{ this }}}
+      {{/each}}
+      {{{nameChat}}}
+      {{{addChats}}}
+    {{else}}
+      {{{nameChat}}}
+      {{{addChats}}}
+    {{/if}}
+    `;
   }
 
-  _getChats() {
-    const chats = ChatsFn.getChats();
+  protected componentDidUpdate(oldProps: ChatListProps, newProps: ChatListProps): boolean {
+    // @ts-ignore
+    if (newProps.chats) {
+      this.children.chats = this.createChats();
+      return true;
+    }
+    return true;
+  }
 
-    return chats.map((chat: { _id: any; }) => new ChatItem({
-      className: ['chat-item'],
-      chatData: chat,
-      events: {
-        click: () => {
-          ChatsFn.changeChat(chat._id);
-        },
-      },
-    }));
+  private createChats() {
+    return this.props.chats.map((data: {id: number}) => {
+      return new ChatItem({
+        chatData: data,
+        className: ["chat-item"],
+        events: {
+          click: () => {
+            ChatController.selectChat(data.id)
+          }
+        }
+      });
+    })
   }
 }

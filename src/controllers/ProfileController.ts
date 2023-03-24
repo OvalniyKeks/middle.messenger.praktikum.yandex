@@ -1,5 +1,5 @@
 import ProfileApi from "../api/ProfileApi";
-import {Router} from "../utils/Router/Router";
+import { Router } from "../utils/Router/Router";
 import store from "../utils/Store";
 export interface Profile {
   id: number;
@@ -27,11 +27,11 @@ class ProfileController {
     try {
       const user = await ProfileApi.update(data);
 
-      store.set("user.data", user);
+      store.set("user", user);
 
       Router.push('profile');
     } catch (e: any) {
-      store.set('user.error', (e as Error))
+      store.set('user', (e as Error))
     }
   }
 
@@ -39,31 +39,21 @@ class ProfileController {
     try {
       const user = await ProfileApi.loadAvatar(data);
 
-      store.set("user.data", user);
+      store.set("user", user);
     } catch (e: any) {
-      store.set('user.error', (e as Error))
+      store.set('user', (e as Error))
     }
   }
 
   async updatePassword(data: ProfilePassword) {
     try {
-      const user = await ProfileApi.changePassword(data);
+      await ProfileApi.changePassword(data);
 
-      store.set("user.data", user);
+      Router.push('profile')
+
+
     } catch (e: any) {
-      store.set('user.error', e as Error)
-    }
-  }
-
-  async findProfile (data: ProfileSearch) {
-    store.set("userSearch", undefined);
-
-    try {
-      const user = await ProfileApi.searchUser(data);
-
-      store.set("userSearchResults", user);
-    } catch (e: any) {
-      store.set('user.error', e as Error)
+      store.set('user', e as Error)
     }
   }
 

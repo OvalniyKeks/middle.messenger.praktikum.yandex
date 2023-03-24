@@ -1,6 +1,4 @@
 import { Block } from '../../../utils';
-// import {ChatListPerson} from "../chatListPerson";
-// import {CHATS} from "../../../../static/data/data";
 
 interface ChatBarAvatarProps {
 	className: Array<string>;
@@ -17,6 +15,6 @@ export class ChatBarAvatar extends Block {
   }
 
   render() {
-    return `<div class="chat-avatar" style="background-image: url(${this.props.src})"></div>`;
+    return `<div class="chat-avatar" style="background-image: url(https://ya-praktikum.tech/api/v2/resources/${this.props.src})"></div>`;
   }
 }

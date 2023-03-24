@@ -13,6 +13,18 @@ interface User {
   avatar: string;
 }
 
+interface UserToChat {
+  id: number;
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  phone: string;
+  avatar: string;
+  role: string;
+  display_name: string;
+}
+
 interface Chat {
   id: number;
   title: string;
@@ -56,6 +68,10 @@ export interface State {
     data?: User;
     error?: string;
     isLoading?: boolean;
+  };
+  users: {
+    list: UserToChat[],
+    isLoading: boolean;
   };
   chats?: {
     list: Chat[],
@@ -105,30 +121,5 @@ export const withStore = (mapStateToProps: (state: State) => any) => (Component:
     }
   }
 }
-// export function withStore(mapStateToProps: (state: any) => any) {
-
-//   return function wrap(Component: typeof Block){
-//     let previousState: any;
-
-
-//     return class WithStore extends Component {
-
-//       constructor(props: any) {
-//         previousState = mapStateToProps(store.getState());
-
-//         super('', { ...props, ...previousState });
-//         store.on(StoreEvents.Updated, () => {
-//           const stateProps = mapStateToProps(store.getState());
-
-//           previousState = stateProps;
-
-//           this.setProps({ ...stateProps });
-//         });
-//       }
-//     }
-
-//   }
-
-// }
 
 export default store;

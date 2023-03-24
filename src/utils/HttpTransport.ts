@@ -7,9 +7,22 @@ export enum Method {
 }
 
 type Options = {
-  method: Method;
+  method?: Method;
+  timeout?: number;
+  headers?: Record<string, string>;
   data?: any;
 };
+
+function queryStringify(data: any) {
+  if (typeof data !== 'object') {
+    throw new Error('Data must be object');
+  }
+
+  const keys = Object.keys(data);
+  return keys.reduce((result, key, index) => {
+    return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
+  }, '?');
+}
 
 export default class HTTPTransport {
   static API_URL = 'https://ya-praktikum.tech/api/v2';
@@ -19,8 +32,11 @@ export default class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  public get<Response>(path = '/'): Promise<Response> {
-    return this.request<Response>(this.endpoint + path);
+  public get<Response>(path = '/', data?: unknown): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: Method.Get,
+      data,
+    });
   }
 
   public post<Response = void>(path: string, data?: unknown): Promise<Response> {
@@ -51,12 +67,15 @@ export default class HTTPTransport {
     });
   }
 
-  private request<Response>(url: string, options: Options = { method: Method.Get }): Promise<Response> {
-    const { method, data } = options;
+  private request<Response>(url: string, options: Options = {}): Promise<Response> {
+    const { method = Method.Get, data } = options;
+    const isFormData = data instanceof FormData;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
+
+      const isGet = method === Method.Get;
+      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
 
       xhr.onreadystatechange = (e) => {
 
@@ -73,7 +92,10 @@ export default class HTTPTransport {
       xhr.onerror = () => reject({ reason: 'network error' });
       xhr.ontimeout = () => reject({ reason: 'timeout' });
 
-      xhr.setRequestHeader('Content-Type', 'application/json');
+      let contentType = 'application/json'
+      if (!isFormData) {
+        xhr.setRequestHeader('Content-Type', contentType);
+      }
 
       xhr.withCredentials = true;
       xhr.responseType = 'json';
@@ -81,7 +103,7 @@ export default class HTTPTransport {
       if (method === Method.Get || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(isFormData ? data : JSON.stringify(data));
       }
     });
   }

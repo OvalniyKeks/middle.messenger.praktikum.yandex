@@ -1,6 +1,7 @@
 import renderDom from '../renderDom';
 import { routes } from './Routes';
 import { Route } from './Routes';
+import store from '../Store';
 
 export class Router {
   static init(): void {
@@ -15,10 +16,19 @@ export class Router {
   }
 
   static push(nameComponent: string): void {
-    const routeObj = this.getRoute(nameComponent);
+    let routeObj = this.getRoute(nameComponent);
+    
+    if (routeObj.auth && !store.getState().user) {
+      routeObj = this.getRoute('Login')
+    }
+
+    if(!routeObj.auth && store.getState().user) {
+      routeObj = this.getRoute('Chat')
+    }
 
     this.setRoute(routeObj);
     renderDom(routeObj);
+
   }
 
   private static setRoute(route: Route): void {
