@@ -9,10 +9,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "isolatedModules": false
+    "isolatedModules": false,
+    "typeRoots" : ["src/typings"]
   },
   "exclude": [
     "node_modules",
-    ".parcel-cache"
+    ".parcel-cache",
+    "src/assets"
   ]
 }

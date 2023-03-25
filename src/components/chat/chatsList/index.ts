@@ -46,11 +46,15 @@ export class ChatsList extends Block {
       {{#each chats}}
         {{{ this }}}
       {{/each}}
-      {{{nameChat}}}
-      {{{addChats}}}
+      <div style="padding: 0 10px; margin-top: 20px">
+        {{{nameChat}}}
+        {{{addChats}}}
+      </div>
     {{else}}
-      {{{nameChat}}}
-      {{{addChats}}}
+      <div style="padding: 0 10px">
+        {{{nameChat}}}
+        {{{addChats}}}
+      </div>
     {{/if}}
     `;
   }
@@ -61,7 +65,7 @@ export class ChatsList extends Block {
       this.children.chats = this.createChats();
       return true;
     }
-    return true;
+    return false;
   }
 
   private createChats() {

@@ -17,16 +17,12 @@ export class ChatBar extends Block {
   init() {
     this.props.className.forEach((element: string) => this.element!.classList.add(element));
 
-    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props.user.avatar });
+    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props.user.avatar, name: this.props.user.display_name ?? this.props.user.first_name });
     this.children.Link = new Link({
       className: ['link'],
       label: 'Профиль',
       nameRoute: 'profile',
       arrow: true,
-    });
-
-    this.children.Input = new Input({
-      className: ['input-field'], type: 'search', name: 'search', placeholder: 'Поиск по чатам...',
     });
   }
 
@@ -39,7 +35,6 @@ export class ChatBar extends Block {
 			</div>
 			{{{ Link}}}
 		</div>
-		{{{Input}}}
 		`;
   }
 }

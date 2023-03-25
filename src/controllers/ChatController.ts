@@ -1,5 +1,6 @@
 import API, { ChatsAPI } from '../api/ChatsApi';
 import ProfileApi from '../api/ProfileApi';
+import { deepCopy } from '../utils/helpers';
 import store from '../utils/Store';
 import MessagesController from './MessagesController';
 
@@ -20,11 +21,11 @@ class ChatsController {
     store.set('chats.isLoading', true)
     const chats = await this.api.read();
 
-    chats.map(async (chat) => {
-      const token = await this.getToken(chat.id);
+    // chats.map(async (chat) => {
+    //   const token = await this.getToken(chat.id);
 
-      await MessagesController.connect(chat.id, token);
-    });
+    //   await MessagesController.connect(chat.id, token);
+    // });
     store.set('chats.list', chats);
     store.set('chats.isLoading', false)
   }
@@ -55,6 +56,12 @@ class ChatsController {
     })
   }
 
+  async deleteUser(id: number, ChatId: number) {
+    this.api.deleteUser(ChatId, [id]).then(() => {
+      this.getUsers(ChatId)
+    })
+  }
+
   async delete(id: number) {
     await this.api.delete(id);
 
@@ -68,8 +75,27 @@ class ChatsController {
   async selectChat(id: number) {
     store.set('selectedChatId', id);
 
+    this.setChatData(id)
+
+    const token = await this.getToken(id);
+    await MessagesController.connect(id, token);
 
     await this.getUsers(id)
+  }
+
+  setChatData(id: number) {
+    let chats = store.getState().chats
+    if (!chats) {
+      return
+    } else {
+      chats = deepCopy(chats, [])
+    }
+    
+
+    const chatData = chats.list.find((item: { id: any; }) => item.id === id)
+    if (chatData) {
+      store.set('chat', chatData)
+    }
   }
 }
 

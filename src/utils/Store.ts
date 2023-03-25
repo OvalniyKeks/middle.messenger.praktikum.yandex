@@ -77,6 +77,7 @@ export interface State {
     list: Chat[],
     isLoading: boolean
   };
+  chat: any,
   selectedChatId?: number;
   messages?: Record<number, Message[]>,
   userSearch: Profile[];

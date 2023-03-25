@@ -18,7 +18,7 @@ export interface Message {
   }
 }
 
-class MessagesController {
+class MessagesControllerBase {
   private sockets: Map<number, WSTransport> = new Map();
 
   async connect(id: number, token: string) {
@@ -79,6 +79,8 @@ class MessagesController {
     messagesToAdd = [...currentMessages, ...messagesToAdd];
 
     store.set(`messages.${id}`, messagesToAdd);
+
+    console.log(store.getState())
   }
 
   private onClose(id: number) {
@@ -93,9 +95,6 @@ class MessagesController {
 }
 
 
-const controller = new MessagesController();
+const MessagesController = new MessagesControllerBase();
 
-// @ts-ignore
-window.messagesController = controller;
-
-export default controller;
+export default MessagesController;

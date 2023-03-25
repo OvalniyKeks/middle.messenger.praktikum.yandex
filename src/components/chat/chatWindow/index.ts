@@ -3,7 +3,8 @@ import { Input } from '../../input';
 import { Button } from '../../button';
 import { ChatBarAvatar } from '../chatAvatar';
 import { withStore } from '../../../utils/Store';
-import { ChatListUser } from './ChatListUser';
+import { UserListComponent } from './ChatListUser';
+import MessagesController from '../../../controllers/MessagesController';
 
 interface ChatMessageProps {
 	className: Array<string>;
@@ -11,6 +12,7 @@ interface ChatMessageProps {
 }
 
 class ChatMessageComponent extends Block {
+	messagesList: any;
 	constructor(props: ChatMessageProps) {
 		super('div', props);
 	}
@@ -18,56 +20,59 @@ class ChatMessageComponent extends Block {
 	init() {
 		this.props.className.forEach((element: string) => this.element!.classList.add(element));
 
-		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props });
-
 		this.children.InputFIle = new Input({
 			className: ['chat-message__input-file'], type: 'file', name: 'file', id: 'file',
 		});
 		this.children.InputMessage = new Input({
-			className: ['input-field', 'chat-message__input-text'], type: 'text', name: 'message', placeholder: 'Введите сообщение',
+			className: ['input-field', 'chat-message__input-text'], type: 'text', name: 'message', placeholder: 'Введите сообщение', id: 'message'
 		});
 		this.children.ButtonSend = new Button({
 			className: ['chat-message__input-send'], type: 'submit', name: 'send', label: 'Отправить',
+			events: {
+				click: () => {
+					const valueMessage = (document.getElementById('message') as HTMLInputElement).value
+					if (!valueMessage) {
+						return false
+					}
+
+					// MessagesController.sendMessage(this.props.chat.id, valueMessage)
+					console.log(this.props.messages)
+				}
+			}
 		});
+
+		// if (this.props.message && this.props.message.hasOwnProperty(`${this.props.selectedChatId}`)) {
+		// 	console.log('wadawdawd')
+		// }
+
+		// this.messagesList = this.props.message[this.props.selectedChatId]
 
 		this.children.UserListComponent = new UserListComponent({
 			className: ['chat-info']
 		})
 	}
 
-	render() {
-		if (typeof this.props.text === 'string') {
-			return `${this.props.text}`;
+	// @ts-ignore
+  protected componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
+    if (newProps.selectedChatId) {
+			return true
 		}
+
+    return false;
+  }
+
+	render() {
 		return `
+		{{#if selectedChatId}}
       <div class="flex chat-window">
 				<div class="chat-message__header">
 					<div class="chat-bar__profile-inner">
-						{{{ChatAvatar}}}
-						<div class="chat-bar__profile-title">${this.props}</div>
+						<div class="chat-bar__profile-title">${this.props.chat ? this.props.chat.title : ''}</div>
 					</div>
 				</div>
 			
 				<div class="chat-message__window">
 					<div class="chat-message__date">19 июля</div>
-					<div class="chat-message__item-wrapper">
-						<div class="chat-message__item my">
-							<div class="chat-message__item-content">This is my message</div>
-							<div class="chat-message__item-time">15:42</div>
-						</div>
-					</div>
-					<div class="chat-message__item-wrapper">
-						<div class="chat-message__item my">
-							<div class="chat-message__item-content">This is my message</div>
-							<div class="chat-message__item-time">15:42</div>
-						</div>
-					</div>
-					<div class="chat-message__item-wrapper">
-						<div class="chat-message__item my">
-							<div class="chat-message__item-content">This is my message</div>
-							<div class="chat-message__item-time">15:42</div>
-						</div>
-					</div>
 					<div class="chat-message__item-wrapper">
 						<div class="chat-message__item my">
 							<div class="chat-message__item-content">This is my message</div>
@@ -89,18 +94,15 @@ class ChatMessageComponent extends Block {
 				</div>
 			</div>
 			{{{UserListComponent}}}
+			{{else}}
+				<div class="chat-message__window-nochat">Выберите чат</div>
+			{{/if}}
 			`;
 	}
 }
 
 
 export const ChatMessage = withStore((state) => {
-	return {chats: state.chats, users: state.users}
+	return {chats: state.chats, users: state.users, messages: state.messages, chat: state.chat, selectedChatId: state.selectedChatId}
 	// @ts-ignore
 })(ChatMessageComponent);
-
-
-export const UserListComponent = withStore((state) => {
-  return { users: state.users?.list, isLoading: state.users?.isLoading, chatId: state.selectedChatId }
-  // @ts-ignore
-})(ChatListUser);

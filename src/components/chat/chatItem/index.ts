@@ -16,7 +16,7 @@ export class ChatItem extends Block {
 
   init() {
     this.props.className.forEach((element: string) => this.element!.classList.add(element));
-    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props.chatData.avatar });
+    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props.chatData.avatar, name: this.props.chatData.title });
   }
 
   render() {
@@ -25,7 +25,7 @@ export class ChatItem extends Block {
         {{{ChatAvatar}}}
         <div class="chat-item__column" style="margin-left: 18px">
           <div class="chat-item__name">${this.props.chatData.title}</div>
-          <div class="chat-item__message">${this.props.chatData.last_message ?? ''}</div>
+          <div class="chat-item__message">${this.props.chatData.last_message ? this.props.chatData.last_message.content : ''}</div>
         </div>
       </div>
       <div class="chat-item__column chat-item__right">

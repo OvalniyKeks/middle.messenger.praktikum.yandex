@@ -1,7 +1,12 @@
 import ChatController from '../../../controllers/ChatController';
 import { Block } from '../../../utils';
+import { deepCopy } from '../../../utils/helpers';
+import { withStore } from '../../../utils/Store';
 import { Button } from '../../button';
 import { Input } from '../../input';
+import { Select } from '../../select';
+import { ChatItem } from '../chatItem';
+import { ChatUser } from './ChatUser';
 interface ChatListUserProps {
   className: Array<string>;
   events?: {
@@ -29,6 +34,28 @@ export class ChatListUser extends Block {
         }
       }
     })
+    // this.children.selectUser = new Select({
+    //   className: ['select'],
+    //   name: 'userSelect',
+    //   id: 'userSelect',
+    //   valueKey: 'id',
+    //   labelKey: 'display_name',
+    //   options: this.props.users
+    // })
+    this.children.selectUser = this.getUsers()
+    // this.children.deleteUser = new Button({
+    //   className: ['button'],
+    //   label: 'Удалить',
+    //   name: 'add',
+    //   type: 'button red',
+    //   events: {
+    //     click: () => {
+    //       // @ts-ignore
+    //       let idUser: any = document.getElementById('userSelect').value
+    //       ChatController.deleteUser(Number(idUser), this.props.chatId)
+    //     }
+    //   }
+    // })
 
     this.children.nameChat = new Input({
       className: ['input-field'], type: 'text', name: 'nameUser', placeholder: 'Логин пользователя', id: 'addUserToChat'
@@ -41,21 +68,67 @@ export class ChatListUser extends Block {
       Загрузка...
     {{else if users}}
       <div class="chat-user__title">Участники</div>
-      {{#each users}}
-        <div class="chat-user">
-          <div class="chat-user__info">
-            <div class="chat-user__name">{{this.display_name}}</div>
-            <div class="chat-user__role">роль: {{this.role}}</div>
-          </div>
-          <div class="chat-user__delete">Удалить</div>
-        </div>
-      {{/each}}
-      {{{nameChat}}}
-      {{{addChats}}}
+      <div class="chat-user__inner">
+        {{#each selectUser}}
+          {{{this}}}
+        {{/each}}
+      
+      {{#if ${this.roleUser()}}}
+        <div style="margin-bottom: 40px"></div>
+        {{{nameChat}}}
+        {{{addChats}}}
+      {{/if}}
+      </div>
     {{else}}
       {{{nameChat}}}
       {{{addChats}}}
     {{/if}}
 		`;
   }
+
+  protected componentDidUpdate(oldProps: any, newProps: any): boolean {    
+    // @ts-ignore
+    if (newProps.users) {
+      this.children.selectUser = this.getUsers()
+      return true;
+    }
+    return false;
+  }
+
+  private roleUser() {
+    if (!this.props.users) {
+      return false
+    }
+
+    const users = deepCopy(this.props.users, [])
+
+    let user = users.find((item: { id: any; }) => item.id === this.props.user.id)
+    if (user?.role === 'admin') {
+      return true
+    }
+    return false
+  }
+
+  private getUsers() {
+    const users = deepCopy(this.props.users, [])
+
+    return users.map((data: {id: number}) => {
+      return new ChatUser({
+        user: data,
+        chatId: this.props.chatId,
+        className: ["chat-user"]
+      });
+    })
+  }
 }
+
+
+export const UserListComponent = withStore((state) => {
+  return { users: state.users?.list, user: state.user, isLoading: state.users?.isLoading, chatId: state.selectedChatId }
+  // @ts-ignore
+})(ChatListUser);
+
+// export const UsersSelect = withStore((state) => {
+//   return { users: state.users?.list }
+//   // @ts-ignore
+// })(Select);

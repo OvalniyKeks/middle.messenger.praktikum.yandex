@@ -29,7 +29,7 @@ export class ProfileBase extends Block {
 	init() {
 		this.element!.classList.add('page', 'profile', 'flex', 'flex-center', 'flex-column');
 
-		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props.user.avatar });
+		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props.user.avatar, name: this.props.user.display_name ?? this.props.user.first_name });
 
 		this.children.LinkChangeData = new Link({
 			className: ['link'],

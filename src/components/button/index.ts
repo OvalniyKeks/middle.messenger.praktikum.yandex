@@ -12,17 +12,17 @@ interface ButtonProps {
 
 export class Button extends Block {
   constructor(props: ButtonProps) {
-    super('div', props);
+    super('button', props);
   }
 
   init() {
     this.props.className.forEach((element: string) => this.element!.classList.add(element));
+
+    this.element!.setAttribute('type', this.props.type)
+    this.element!.setAttribute('name', this.props.name)
   }
 
   render() {
-    return `
-      <button class="button" type="${this.props.type}" name="${this.props.name}">
-		${this.props.label ?? ''}
-      </button>`;
+    return `${this.props.label ?? ''}`;
   }
 }

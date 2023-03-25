@@ -49,7 +49,6 @@ export class AuthController {
       MessagesController.closeAll();
 
       await this.api.logout();
-
       Router.push('login')
 
       store.set('user', null);
