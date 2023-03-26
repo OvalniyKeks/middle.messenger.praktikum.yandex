@@ -34,28 +34,7 @@ export class ChatListUser extends Block {
         }
       }
     })
-    // this.children.selectUser = new Select({
-    //   className: ['select'],
-    //   name: 'userSelect',
-    //   id: 'userSelect',
-    //   valueKey: 'id',
-    //   labelKey: 'display_name',
-    //   options: this.props.users
-    // })
     this.children.selectUser = this.getUsers()
-    // this.children.deleteUser = new Button({
-    //   className: ['button'],
-    //   label: 'Удалить',
-    //   name: 'add',
-    //   type: 'button red',
-    //   events: {
-    //     click: () => {
-    //       // @ts-ignore
-    //       let idUser: any = document.getElementById('userSelect').value
-    //       ChatController.deleteUser(Number(idUser), this.props.chatId)
-    //     }
-    //   }
-    // })
 
     this.children.nameChat = new Input({
       className: ['input-field'], type: 'text', name: 'nameUser', placeholder: 'Логин пользователя', id: 'addUserToChat'
@@ -65,7 +44,7 @@ export class ChatListUser extends Block {
   render() {
     return `
     {{#if isLoading}}
-      Загрузка...
+      <div class="chat-user__loading">Загрузка...</div>
     {{else if users}}
       <div class="chat-user__title">Участники</div>
       <div class="chat-user__inner">

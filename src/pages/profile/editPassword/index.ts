@@ -33,7 +33,7 @@ export class ProfileEditPassword extends Block {
 
 		this.dataProfile = store.getState().user
 
-		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.avatar });
+		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.avatar, name: this.dataProfile.display_name ?? this.dataProfile.first_name });
 
 		this.children.FormEditProfilePassword = new FormEditProfilePassword({
 		  name: 'editprofilepassword',
@@ -75,9 +75,9 @@ export class ProfileEditPassword extends Block {
     return `
 		<div style="margin-bottom: 20px">{{{LinkBack}}}</div>
     	<div class="card card-profile">
-  		  {{{ ChatAvatar}}}
+  		  {{{ ChatAvatar }}}
   		  <div class="flex flex-column flex-around" style="margin-left: 20px;">
-  		    <div class="card-profile__name">${this.dataProfile.first_name}</div>
+  		    <div class="card-profile__name">${this.dataProfile.display_name ?? this.dataProfile.first_name}</div>
   		    <div class="card-profile__phone">${this.dataProfile.phone}</div>
   		  </div>
   		</div>

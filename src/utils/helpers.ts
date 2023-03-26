@@ -97,3 +97,18 @@ export function getRandomColor() {
   }
   return color;
 }
+
+export function formatDate(dateValue: any) {
+
+  const date = new Date(dateValue)
+
+  var hh = date.getHours();
+  // @ts-ignore
+  if (hh < 10) hh = '0' + hh;
+
+  var mm = date.getMinutes();
+  // @ts-ignore
+  if (mm < 10) mm = '0' + mm;
+
+  return hh + ':' + mm;
+}

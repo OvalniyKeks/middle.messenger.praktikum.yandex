@@ -1,7 +1,7 @@
 import { Block } from '../../utils';
 import { ChatBar } from '../../components/chat/chatBar';
 import { ChatsList } from '../../components/chat/chatsList';
-import { ChatMessage } from '../../components/chat/chatWindow';
+import { ChatMessenger } from '../../components/chat/chatWindow';
 import store, { withStore } from '../../utils/Store';
 import ChatController from '../../controllers/ChatController';
 
@@ -24,7 +24,7 @@ export class Chat extends Block {
     });
 
     // this.children.ChatMessage = this.getComponentChat();
-    this.children.ChatMessage = new ChatMessage({
+    this.children.ChatMessenger = new ChatMessenger({
       className: ['chat-message'],
     });
   }
@@ -36,35 +36,10 @@ export class Chat extends Block {
 				{{{ChatBar}}}
 				{{{ChatList}}}
 			</div>
-			{{{ChatMessage}}}
+			{{{ChatMessenger}}}
     </div>`;
   }
-
-  // getComponentChat() {
-  //   if (store.getState().selectedChatId) {
-  //     return new ChatMessage({
-  //       className: ['chat-message'],
-  //     });
-  //   }
-  //   return new ChatMessage({
-  //     className: ['chat-message', 'flex', 'flex-center'],
-  //     text: 'Выберите чат',
-  //   });
-  // }
-
-  // @ts-ignore
-  // protected componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
-  //   this.children.ChatMessage = this.getComponentChat();
-
-  //   return true;
-  // }
 }
-
-// export const Chat = withStore((state) => {
-//   return state
-
-//   // @ts-ignore
-// })(ChatPage);
 
 export const ChatBarComponent = withStore((state) => {
   return { user: state.user }

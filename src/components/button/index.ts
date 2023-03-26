@@ -18,6 +18,8 @@ export class Button extends Block {
   init() {
     this.props.className.forEach((element: string) => this.element!.classList.add(element));
 
+    this.element!.classList.add('button')
+
     this.element!.setAttribute('type', this.props.type)
     this.element!.setAttribute('name', this.props.name)
   }

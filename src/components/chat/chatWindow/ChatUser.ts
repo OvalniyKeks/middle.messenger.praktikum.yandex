@@ -18,7 +18,7 @@ export class ChatUser extends Block {
 
     this.children.deleteUser = new Button({
       className: ['button', 'chat-user__delete'],
-      label: 'Удалить',
+      label: 'Исключить',
       name: 'add',
       type: 'button',
       events: {

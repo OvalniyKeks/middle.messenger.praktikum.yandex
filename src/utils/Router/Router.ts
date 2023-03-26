@@ -18,12 +18,8 @@ export class Router {
   static push(nameComponent: string): void {
     let routeObj = this.getRoute(nameComponent);
     
-    if (routeObj.auth && !store.getState().user) {
-      routeObj = this.getRoute('Login')
-    }
-
-    if(!routeObj.auth && store.getState().user) {
-      routeObj = this.getRoute('Chat')
+    if (!store.getState().user && routeObj.auth) {
+      routeObj = this.getRoute('Register')
     }
 
     this.setRoute(routeObj);

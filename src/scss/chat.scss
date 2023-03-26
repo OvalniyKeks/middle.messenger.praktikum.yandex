@@ -30,7 +30,7 @@
 
     &__items {
       position: relative;
-      max-height: calc( 100vh - 173px );
+      max-height: calc(100vh - 173px);
       height: 100%;
       overflow: auto;
 
@@ -51,6 +51,7 @@
     background-position: center;
     background-size: cover;
     background-color: $subtext;
+
     &__letter {
       position: absolute;
       top: 50%;
@@ -60,6 +61,7 @@
       color: $accent_text_link;
       text-transform: uppercase;
     }
+
     &__edit {
       cursor: pointer;
       display: block;
@@ -98,14 +100,16 @@
     width: 100%;
     position: relative;
   }
+
   &-info {
+    position: relative;
     width: 300px;
     border-left: 1px solid $border;
   }
 
   &-message {
     display: flex;
-    width: calc( 100vw - 300px );
+    width: calc(100vw - 300px);
     height: 100vh;
     position: relative;
 
@@ -144,15 +148,17 @@
       width: 100%;
       box-sizing: border-box;
       position: relative;
-      height: calc( 100vh - 143px );
+      height: calc(100vh - 143px);
       padding: 18px 10px;
       margin-top: 60px;
       overflow: auto;
       display: flex;
       flex-direction: column-reverse;
+
       &::-webkit-scrollbar {
         width: 7px !important;
       }
+
       &::-webkit-scrollbar-thumb {
         background: #B6B6B6;
       }
@@ -163,7 +169,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
-      
+
     }
 
     &__action {
@@ -208,11 +214,10 @@
       }
 
       &-send {
-        & .button {
-          height: 40px;
-          font-size: 14px;
-          padding: 0 10px;
-        }
+        max-width: 150px;
+        height: 40px;
+        font-size: 14px;
+        padding: 0 10px;
       }
     }
 
@@ -247,6 +252,9 @@
           background: $link_light;
         }
       }
+      &-content {
+        word-break: break-all;
+      }
     }
   }
 
@@ -258,6 +266,7 @@
     justify-content: space-between;
     border-top: 1px solid $border;
     cursor: pointer;
+
 
     &__column {
       min-height: 50px;
@@ -284,6 +293,10 @@
       font-size: 14px;
       color: $subtext;
       font-weight: 500;
+      max-width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &__time {
@@ -305,15 +318,25 @@
       font-size: 12px;
     }
   }
+
   &-user {
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
     padding-bottom: 10px;
+    
+    &__loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
     &__inner {
       padding: 10px;
     }
+
     &__title {
       box-sizing: border-box;
       height: 60px;
@@ -325,12 +348,15 @@
       border-bottom: 1px solid $border;
       margin-bottom: 10px;
     }
+
     &__name {
       font-weight: 500;
     }
+
     &__role {
       font-size: 14px;
     }
+
     &__delete {
       background: transparent;
       font-size: 14px;

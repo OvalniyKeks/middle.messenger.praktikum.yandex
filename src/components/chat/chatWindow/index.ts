@@ -1,10 +1,11 @@
 import { Block } from '../../../utils';
 import { Input } from '../../input';
 import { Button } from '../../button';
-import { ChatBarAvatar } from '../chatAvatar';
 import { withStore } from '../../../utils/Store';
 import { UserListComponent } from './ChatListUser';
 import MessagesController from '../../../controllers/MessagesController';
+import { deepCopy } from '../../../utils/helpers';
+import { ChatMessage } from '../chatMessage';
 
 interface ChatMessageProps {
 	className: Array<string>;
@@ -27,25 +28,27 @@ class ChatMessageComponent extends Block {
 			className: ['input-field', 'chat-message__input-text'], type: 'text', name: 'message', placeholder: 'Введите сообщение', id: 'message'
 		});
 		this.children.ButtonSend = new Button({
-			className: ['chat-message__input-send'], type: 'submit', name: 'send', label: 'Отправить',
+			className: ['button', 'chat-message__input-send'], type: 'submit', name: 'send', label: 'Отправить',
 			events: {
 				click: () => {
-					const valueMessage = (document.getElementById('message') as HTMLInputElement).value
+					let valueMessage = (document.getElementById('message') as HTMLInputElement).value
 					if (!valueMessage) {
 						return false
 					}
 
-					// MessagesController.sendMessage(this.props.chat.id, valueMessage)
-					console.log(this.props.messages)
+					MessagesController.sendMessage(this.props.chat.id, valueMessage)
+
+					this.getMessages()
+
+					// valueMessage = ''
 				}
 			}
 		});
 
-		// if (this.props.message && this.props.message.hasOwnProperty(`${this.props.selectedChatId}`)) {
-		// 	console.log('wadawdawd')
-		// }
-
-		// this.messagesList = this.props.message[this.props.selectedChatId]
+		const messages = this.getMessages()
+		if (messages) {
+			this.children.messages = messages
+		}
 
 		this.children.UserListComponent = new UserListComponent({
 			className: ['chat-info']
@@ -53,13 +56,18 @@ class ChatMessageComponent extends Block {
 	}
 
 	// @ts-ignore
-  protected componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
-    if (newProps.selectedChatId) {
+	protected componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
+		if (newProps.messages) {
+			this.children.messages = this.getMessages()
 			return true
 		}
 
-    return false;
-  }
+		if (newProps.selectedChatId) {
+			return true
+		}
+
+		return false;
+	}
 
 	render() {
 		return `
@@ -73,18 +81,11 @@ class ChatMessageComponent extends Block {
 			
 				<div class="chat-message__window">
 					<div class="chat-message__date">19 июля</div>
-					<div class="chat-message__item-wrapper">
-						<div class="chat-message__item my">
-							<div class="chat-message__item-content">This is my message</div>
-							<div class="chat-message__item-time">15:42</div>
-						</div>
-					</div>
-					<div class="chat-message__item-wrapper">
-						<div class="chat-message__item another">
-							<div class="chat-message__item-content">another message dwadwadawdawdawdd</div>
-							<div class="chat-message__item-time">12:38</div>
-						</div>
-					</div>
+					{{#if messages}}
+						{{#each messages}}
+							{{{ this }}}
+						{{/each}}
+					{{/if}}
 				</div>
 			
 				<div class="chat-message__action">
@@ -99,10 +100,36 @@ class ChatMessageComponent extends Block {
 			{{/if}}
 			`;
 	}
+
+
+	private getMessages() {
+		let messages = deepCopy(this.props.messages, [])
+		
+		// console.log(messages)
+
+		if (Object.keys(messages).length > 0) {
+			messages = messages[this.props.selectedChatId]
+		}
+
+		if (messages.length > 0) {
+			messages.reverse()
+		}
+
+		console.log(messages)
+
+		return messages.map((message: any) => {
+			if (message.type !== 'user connected') {
+				return new ChatMessage({
+					message: message,
+					userId: this.props.user?.id
+				});
+			}
+		})
+	}
 }
 
 
-export const ChatMessage = withStore((state) => {
-	return {chats: state.chats, users: state.users, messages: state.messages, chat: state.chat, selectedChatId: state.selectedChatId}
+export const ChatMessenger = withStore((state) => {
+	return { chats: state.chats, users: state.users, messages: state.messages, chat: state.chat, selectedChatId: state.selectedChatId, user: state.user }
 	// @ts-ignore
 })(ChatMessageComponent);

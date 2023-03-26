@@ -54,6 +54,8 @@ class MessagesControllerBase {
   fetchOldMessages(id: number) {
     const socket = this.sockets.get(id);
 
+    console.log(store.getState())
+
     if (!socket) {
       throw new Error(`Chat ${id} is not connected`);
     }
@@ -79,8 +81,6 @@ class MessagesControllerBase {
     messagesToAdd = [...currentMessages, ...messagesToAdd];
 
     store.set(`messages.${id}`, messagesToAdd);
-
-    console.log(store.getState())
   }
 
   private onClose(id: number) {
