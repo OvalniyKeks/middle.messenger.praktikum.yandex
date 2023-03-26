@@ -31,16 +31,17 @@ class ChatMessageComponent extends Block {
 			className: ['button', 'chat-message__input-send'], type: 'submit', name: 'send', label: 'Отправить',
 			events: {
 				click: () => {
-					let valueMessage = (document.getElementById('message') as HTMLInputElement).value
+					let inputMessage = (document.getElementById('message') as HTMLInputElement)
+					const valueMessage = inputMessage.value
 					if (!valueMessage) {
 						return false
 					}
 
 					MessagesController.sendMessage(this.props.chat.id, valueMessage)
 
-					this.getMessages()
+					// this.getMessages()
 
-					// valueMessage = ''
+					inputMessage.value = ''
 				}
 			}
 		});
