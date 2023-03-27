@@ -1,7 +1,7 @@
-import { Login } from './pages/Login';
-import { Register } from './pages/Register';
+import { Login } from './pages/login';
+import { Register } from './pages/register';
 import Router from './utils/Router';
-import { Profile } from './pages/Profile';
+import { Profile } from './pages/profile';
 import AuthController from './controllers/AuthController';
 import { Chat } from './pages/chat';
 import { ProfileEdit } from './pages/profile/edit';
