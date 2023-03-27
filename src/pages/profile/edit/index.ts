@@ -5,14 +5,9 @@ import { withStore } from '../../../utils/Store';
 import ProfileController from '../../../controllers/ProfileController';
 import { Link } from '../../../components/link';
 import { AvatarEdit } from '../../../components/chat/ChatAvatarEdit';
-import { Button } from '../../../components/button';
 
 interface ProfileProps {
 	className: string;
-}
-
-interface HTMLInputEvent extends Event {
-	target: HTMLInputElement & EventTarget;
 }
 
 class ProfileEditPage extends Block {
@@ -30,7 +25,7 @@ class ProfileEditPage extends Block {
 			events: {
 				submit: (event: SubmitEvent) => {
 					event!.preventDefault()
-					this.uploadPhoto(event.target)
+					this.uploadPhoto(event.target as HTMLFormElement)
 				}
 			}
 		})
@@ -52,7 +47,7 @@ class ProfileEditPage extends Block {
 		this.children.LinkBack = new Link({
 			className: ['link'],
 			label: 'Назад',
-			nameRoute: 'profile',
+			nameRoute: '/profile',
 			arrow: false,
 		});
 	}
@@ -60,17 +55,15 @@ class ProfileEditPage extends Block {
 	onSubmit() {
 		let fields = FormFn.getFields('editprofile')
 
-		let data = {}
+		let data: { [key: string]: any } = {}
 		fields.forEach(field => {
-			// @ts-ignore
-			data[field.name] = field.value
+			data[(field as HTMLInputElement).name] = (field as HTMLInputElement).value
 		});
 
 		ProfileController.updateProfile({ ...store.getState().user, ...data })
 	}
 
-	uploadPhoto(form: EventTarget | null | undefined) {
-		// @ts-ignore
+	uploadPhoto(form: HTMLFormElement) {
 		let formData = new FormData(form)
 
 		ProfileController.updateAvatar(formData)
@@ -89,12 +82,8 @@ class ProfileEditPage extends Block {
 
 export const ProfileEdit = withStore((state) => {
 	return { user: state.user } || {}
-
-	// @ts-ignore
-})(ProfileEditPage)
+})(ProfileEditPage as any)
 
 export const FormEditProfileComponent = withStore((state) => {
 	return { user: state.user }
-
-	// @ts-ignore
-})(FormEditProfile);
+})(FormEditProfile as any);

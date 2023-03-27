@@ -1,9 +1,10 @@
-import { Block, FormFn, Router } from '../../../utils';
+import { Block, FormFn } from '../../../utils';
 import { ChatBarAvatar } from '../../../components/chat/chatAvatar';
 import { FormEditProfilePassword } from '../../../components/form/editprofilepassword';
 import store from '../../../utils/Store';
 import ProfileController from '../../../controllers/ProfileController';
 import { Link } from '../../../components/link';
+import { ProfilePassword } from '../../../types';
 
 interface ProfileProps {
 	className: string;
@@ -51,7 +52,7 @@ export class ProfileEditPassword extends Block {
 		this.children.LinkBack = new Link({
 			className: ['link'],
 			label: 'Назад',
-			nameRoute: 'profile',
+			nameRoute: '/profile',
 			arrow: false,
 		});
   }
@@ -59,16 +60,12 @@ export class ProfileEditPassword extends Block {
 	onSubmit() {
 		let fields = FormFn.getFields('editprofilepassword')
 
-		let data = {
-			oldPassword: '',
-			newPassword: ''
-		}
+		let data: { [key: string]: any } = {}
 		fields.forEach(field => {
-			// @ts-ignore
-			data[field.name] = field.value
+			data[(field as HTMLInputElement).name] = (field as HTMLInputElement).value
 		});
 
-		ProfileController.updatePassword(data)
+		ProfileController.updatePassword(data as ProfilePassword)
 	}
 
   render() {

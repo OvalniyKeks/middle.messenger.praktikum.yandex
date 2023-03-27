@@ -1,67 +1,9 @@
 import { set } from './helpers';
 import { EventBus } from './EventBus';
 import Block from './Block';
+import { Chat, Message, Profile, User, UserToChat } from '../types';
 
-interface User {
-  id: number;
-  first_name: string;
-  second_name: string;
-  login: string;
-  email: string;
-  password: string;
-  phone: string;
-  avatar: string;
-}
 
-interface UserToChat {
-  id: number;
-  first_name: string;
-  second_name: string;
-  login: string;
-  email: string;
-  phone: string;
-  avatar: string;
-  role: string;
-  display_name: string;
-}
-
-interface Chat {
-  id: number;
-  title: string;
-  avatar: string;
-  unread_count: number;
-  last_message: {
-    user: User,
-    time: string;
-    content: string;
-  }
-}
-interface Profile {
-  id: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  email: string;
-  phone: string;
-  avatar: string;
-}
-interface Message {
-  chat_id: number;
-  time: string;
-  type: string;
-  user_id: number;
-  content: string;
-  file?: {
-    id: number;
-    user_id: number;
-    path: string;
-    filename: string;
-    content_type: string;
-    content_size: number;
-    upload_date: string;
-  }
-}
 
 export interface State {
   user?: {
@@ -77,7 +19,7 @@ export interface State {
     list: Chat[],
     isLoading: boolean
   };
-  chat: any,
+  chat: Chat,
   selectedChatId?: number;
   messages?: Record<number, Message[]>,
   userSearch: Profile[];
@@ -106,7 +48,7 @@ const store = new Store();
 
 export const withStore = (mapStateToProps: (state: State) => any) => (Component: typeof Block<any>) => {
   return class WithStore extends Component {
-    constructor(props: any) {
+    constructor(props: unknown) {
       let previousState = mapStateToProps(store.getState());
 
       // @ts-ignore

@@ -1,5 +1,6 @@
 import API, { ChatsAPI } from '../api/ChatsApi';
 import ProfileApi from '../api/ProfileApi';
+import { UserToChat } from '../types';
 import { deepCopy } from '../utils/helpers';
 import store from '../utils/Store';
 import MessagesController from './MessagesController';
@@ -20,12 +21,7 @@ class ChatsController {
   async fetchChats() {
     store.set('chats.isLoading', true)
     const chats = await this.api.read();
-
-    // chats.map(async (chat) => {
-    //   const token = await this.getToken(chat.id);
-
-    //   await MessagesController.connect(chat.id, token);
-    // });
+    
     store.set('chats.list', chats);
     store.set('chats.isLoading', false)
   }
@@ -44,14 +40,15 @@ class ChatsController {
   }
 
   async addUser(login: string, id: number) {
-    let findestUser: any = await this.searchUser(login)
-    if (findestUser) {
-      findestUser = findestUser[0]
+    const findestUsers: UserToChat[] = await this.searchUser(login)
+    let user: { [key: string]: any }
+    if (findestUsers) {
+      user = findestUsers[0]
     } else {
       return
     }
 
-    this.api.addUsers(id, [findestUser.id]).then(() => {
+    this.api.addUsers(id, [user.id]).then(() => {
       this.getUsers(id)
     })
   }
@@ -91,14 +88,11 @@ class ChatsController {
       chats = deepCopy(chats, [])
     }
     
-
-    const chatData = chats.list.find((item: { id: any; }) => item.id === id)
+    const chatData = chats.list.find((item: { id: number; }) => item.id === id)
     if (chatData) {
       store.set('chat', chatData)
     }
   }
 }
 
-const ChatController = new ChatsController();
-
-export default ChatController;
+export default new ChatsController()

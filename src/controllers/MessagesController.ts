@@ -1,22 +1,6 @@
 import WSTransport, { WSTransportEvents } from '../utils/WSTransport';
 import store from '../utils/Store';
-
-export interface Message {
-  chat_id: number;
-  time: string;
-  type: string;
-  user_id: number;
-  content: string;
-  file?: {
-    id: number;
-    user_id: number;
-    path: string;
-    filename: string;
-    content_type: string;
-    content_size: number;
-    upload_date: string;
-  }
-}
+import { Message } from '../types';
 
 class MessagesControllerBase {
   private sockets: Map<number, WSTransport> = new Map();
@@ -54,8 +38,6 @@ class MessagesControllerBase {
   fetchOldMessages(id: number) {
     const socket = this.sockets.get(id);
 
-    console.log(store.getState())
-
     if (!socket) {
       throw new Error(`Chat ${id} is not connected`);
     }
@@ -88,7 +70,6 @@ class MessagesControllerBase {
   }
 
   private subscribe(transport: WSTransport, id: number) {
-    // @ts-ignore
     transport.on(WSTransportEvents.Message, (message) => this.onMessage(id, message));
     transport.on(WSTransportEvents.Close, () => this.onClose(id));
   }

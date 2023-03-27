@@ -2,22 +2,10 @@ import { Block } from '../../utils';
 import { ChatBarAvatar } from '../../components/chat/chatAvatar';
 import { Link } from '../../components/link';
 import AuthController from '../../controllers/AuthController';
-import store, { withStore } from '../../utils/Store';
+import { withStore } from '../../utils/Store';
 
 interface ProfileProps {
 	className: string;
-}
-
-interface User {
-  id: number;
-  first_name: string;
-  second_name: string;
-  login: string;
-  email: string;
-  password: string;
-  phone: string;
-  avatar: string;
-	display_name: string;
 }
 
 export class ProfileBase extends Block {
@@ -34,19 +22,19 @@ export class ProfileBase extends Block {
 		this.children.LinkChangeData = new Link({
 			className: ['link'],
 			label: 'Изменить данные',
-			nameRoute: 'ProfileEdit',
+			nameRoute: '/edit',
 			arrow: true,
 		});
 		this.children.LinkChangePassword = new Link({
 			className: ['link'],
 			label: 'Изменить пароль',
-			nameRoute: 'ProfileEditPassword',
+			nameRoute: '/password',
 			arrow: true,
 		});
 		this.children.LinkExit = new Link({
 			className: ['link', 'link-red'],
 			label: 'Выйти из аккаунта',
-			nameRoute: 'login',
+			nameRoute: '/',
 			arrow: true,
 			events: {
 				click: () => {
@@ -57,7 +45,7 @@ export class ProfileBase extends Block {
 		this.children.LinkBack = new Link({
 			className: ['link'],
 			label: 'В чаты',
-			nameRoute: 'chat',
+			nameRoute: '/messenger',
 			arrow: false,
 		});
 	}
@@ -105,6 +93,4 @@ export class ProfileBase extends Block {
 
 export const Profile = withStore((state) => {
 	return {user: state.user} || {}
-
-	// @ts-ignore
-})(ProfileBase)
+})(ProfileBase as any)

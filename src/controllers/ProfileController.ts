@@ -1,25 +1,7 @@
 import ProfileApi from "../api/ProfileApi";
-import { Router } from "../utils/Router/Router";
+import { Profile, ProfilePassword } from "../types";
+import Router from "../utils/Router";
 import store from "../utils/Store";
-export interface Profile {
-  id: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  email: string;
-  phone: string;
-  avatar: string;
-}
-
-export interface ProfilePassword {
-  oldPassword: string;
-  newPassword: string;
-}
-
-export interface ProfileSearch {
-  login: string;
-}
 
 class ProfileController {
 
@@ -29,8 +11,8 @@ class ProfileController {
 
       store.set("user", user);
 
-      Router.push('profile');
-    } catch (e: any) {
+      Router.go('/profile');
+    } catch (e: unknown) {
       store.set('user', (e as Error))
     }
   }
@@ -40,7 +22,7 @@ class ProfileController {
       const user = await ProfileApi.loadAvatar(data);
 
       store.set("user", user);
-    } catch (e: any) {
+    } catch (e: unknown) {
       store.set('user', (e as Error))
     }
   }
@@ -49,10 +31,10 @@ class ProfileController {
     try {
       await ProfileApi.changePassword(data);
 
-      Router.push('profile')
+      Router.go('/profile')
 
 
-    } catch (e: any) {
+    } catch (e: unknown) {
       store.set('user', e as Error)
     }
   }

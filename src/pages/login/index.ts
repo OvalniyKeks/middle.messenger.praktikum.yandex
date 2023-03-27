@@ -31,10 +31,9 @@ export class Login extends Block {
 	}
 
 	onSubmit() {
-		let data: any = {}
+		let data: { [key: string]: any } = {}
     FormFn.getFields('login').map(input => {
-			// @ts-ignore
-			data[input.name] = input.value
+			data[(input as HTMLInputElement).name] = (input as HTMLInputElement).value
 		});
 
     AuthController.signin(data as SigninData);

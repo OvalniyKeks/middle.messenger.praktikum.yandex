@@ -1,6 +1,6 @@
 import API, { AuthAPI, SigninData, SignupData } from '../api/AuthApi';
 import store from '../utils/Store';
-import { Router } from '../utils';
+import Router from '../utils/Router';
 import MessagesController from './MessagesController';
 
 export class AuthController {
@@ -14,11 +14,11 @@ export class AuthController {
     try {
       this.api.signin(data).then(() => {
         this.fetchUser().then(() => {
-          Router.push('Chat');
+          Router.go('/messenger');
         })
       })
 
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error(e);
     }
   }
@@ -27,12 +27,12 @@ export class AuthController {
     try {
       await this.api.signup(data).then(() => {
         this.fetchUser().then(() => {
-          Router.push('Chat');
+          Router.go('/messenger');
         })
       });
 
-    } catch (e: any) {
-      console.error(e.message);
+    } catch (e: unknown) {
+      console.error(e);
     }
   }
 
@@ -49,11 +49,11 @@ export class AuthController {
       MessagesController.closeAll();
 
       await this.api.logout();
-      Router.push('login')
+      Router.go('/');
 
       store.set('user', null);
-    } catch (e: any) {
-      console.error(e.message);
+    } catch (e: unknown) {
+      console.error(e);
     }
   }
 }

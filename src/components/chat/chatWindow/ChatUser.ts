@@ -1,11 +1,14 @@
+import { User } from '../../../api/AuthApi';
 import ChatController from '../../../controllers/ChatController';
 import { Block } from '../../../utils';
 import { Button } from '../../button';
 
+
+
 interface ChatUserProps {
   className: Array<string>;
-  user?: any;
-  chatId?: any;
+  user?: User;
+  chatId?: Number;
 }
 
 export class ChatUser extends Block {
@@ -23,7 +26,6 @@ export class ChatUser extends Block {
       type: 'button',
       events: {
         click: () => {
-          // @ts-ignore
           ChatController.deleteUser(this.props.user.id, this.props.chatId)
         }
       }

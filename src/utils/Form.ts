@@ -2,7 +2,7 @@ import { default as isValid, errorsText } from './validate';
 
 export class FormFn {
   static getFields(nameForm: string) {
-    const form = document.querySelector(`.form[data-id="${nameForm}"]`);
+    const form = document.querySelector(`form[data-id="${nameForm}"]`);
     const formElements = Array.from((form as HTMLFormElement).elements);
 
     const fields = formElements.filter((element) => element.tagName === 'INPUT');
@@ -10,7 +10,7 @@ export class FormFn {
   }
 
   static getField(nameField: string) {
-    return document.getElementsByName(nameField)[0];
+    return (document.getElementsByName(nameField)[0] as HTMLInputElement);
   }
 
   static checkForm(nameForm: string) {
@@ -31,15 +31,19 @@ export class FormFn {
     return true;
   }
 
+  static resetForm(name: string) {
+    this.getFields(name).map(input => {
+			(input as HTMLInputElement).value = ''
+		});
+  }
+
   static checkField(name: string | null) {
     if (!name) {
       return;
     }
-    // @ts-ignore
     const { value } = this.getField(name);
 
     if (name === 'repeatPassword') {
-      // @ts-ignore
       const originPasswordField = this.getField('password').value;
       if (!originPasswordField) {
         return;
@@ -82,7 +86,7 @@ export class FormFn {
     const errorElement = document.createElement('div');
     errorElement.classList.add('form-error');
     errorElement.setAttribute('data-error', 'true');
-    errorElement.textContent = errorsText[nameField];
+    errorElement.textContent = (errorsText as any)[nameField];
     return errorElement;
   }
 }

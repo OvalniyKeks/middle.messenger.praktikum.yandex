@@ -10,7 +10,7 @@ type Options = {
   method?: Method;
   timeout?: number;
   headers?: Record<string, string>;
-  data?: any;
+  data?: unknown;
 };
 
 function queryStringify(data: any) {

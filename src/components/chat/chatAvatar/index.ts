@@ -20,15 +20,6 @@ export class ChatBarAvatar extends Block {
     }
   }
 
-  // protected componentDidUpdate(oldProps: any, newProps: any): boolean {
-  //   if (newProps.src) {
-  //     this.image = `https://ya-praktikum.tech/api/v2/resources/${newProps.src}`
-	// 		return true
-	// 	}
-
-  //   return false;
-  // }
-
   getFirstLetter() {
     if (!this.props.name) return ''
     return this.props.name[0]

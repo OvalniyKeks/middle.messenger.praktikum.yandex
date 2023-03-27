@@ -1,7 +1,6 @@
 import { Block } from '../../../utils';
 import { ChatBarAvatar } from '../chatAvatar';
 import { Link } from '../../link';
-import { Input } from '../../input';
 interface ChatBarProps {
   className: Array<string>;
   events?: {
@@ -21,7 +20,7 @@ export class ChatBar extends Block {
     this.children.Link = new Link({
       className: ['link'],
       label: 'Профиль',
-      nameRoute: 'profile',
+      nameRoute: '/profile',
       arrow: true,
     });
   }

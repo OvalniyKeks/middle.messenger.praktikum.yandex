@@ -1,9 +1,10 @@
+import { Chat } from '../../../types';
 import { Block } from '../../../utils';
 import { ChatBarAvatar } from '../chatAvatar';
 
 interface ChatItemProps {
 	className: Array<string>;
-	chatData: any;
+	chatData: Chat;
 	events?: {
 		click: () => void;
 	}

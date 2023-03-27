@@ -1,4 +1,4 @@
-import { Block } from '../../../utils';
+import { Block, FormFn } from '../../../utils';
 import { Input } from '../../input';
 import { Button } from '../../button';
 import { withStore } from '../../../utils/Store';
@@ -6,45 +6,24 @@ import { UserListComponent } from './ChatListUser';
 import MessagesController from '../../../controllers/MessagesController';
 import { deepCopy } from '../../../utils/helpers';
 import { ChatMessage } from '../chatMessage';
+import { Message } from '../../../types';
+import { MessageForm } from '../../form/sendmessage';
 
 interface ChatMessageProps {
 	className: Array<string>;
+	messages: Message[],
+	selectedChatId: number;
 	text?: string;
 }
 
 class ChatMessageComponent extends Block {
-	messagesList: any;
+	messagesList: Array<Message>;
 	constructor(props: ChatMessageProps) {
 		super('div', props);
 	}
 
 	init() {
 		this.props.className.forEach((element: string) => this.element!.classList.add(element));
-
-		this.children.InputFIle = new Input({
-			className: ['chat-message__input-file'], type: 'file', name: 'file', id: 'file',
-		});
-		this.children.InputMessage = new Input({
-			className: ['input-field', 'chat-message__input-text'], type: 'text', name: 'message', placeholder: 'Введите сообщение', id: 'message'
-		});
-		this.children.ButtonSend = new Button({
-			className: ['button', 'chat-message__input-send'], type: 'submit', name: 'send', label: 'Отправить',
-			events: {
-				click: () => {
-					let inputMessage = (document.getElementById('message') as HTMLInputElement)
-					const valueMessage = inputMessage.value
-					if (!valueMessage) {
-						return false
-					}
-
-					MessagesController.sendMessage(this.props.chat.id, valueMessage)
-
-					// this.getMessages()
-
-					inputMessage.value = ''
-				}
-			}
-		});
 
 		const messages = this.getMessages()
 		if (messages) {
@@ -54,10 +33,35 @@ class ChatMessageComponent extends Block {
 		this.children.UserListComponent = new UserListComponent({
 			className: ['chat-info']
 		})
+
+		this.children.sendMessage = new MessageForm({
+			className: ['chat-message__action'],
+			name: 'sendmessage',
+			events: {
+				submit: (event) => {
+					event!.preventDefault();
+
+					const resultCheck = FormFn.checkForm('sendmessage');
+					if (resultCheck) {
+						this.sendMessage()
+					}
+				}
+			}
+		})
 	}
 
-	// @ts-ignore
-	protected componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
+	sendMessage() {
+		let data: { [key: string]: any } = {}
+    FormFn.getFields('sendmessage').map(input => {
+			data[(input as HTMLInputElement).name] = (input as HTMLInputElement).value
+		});
+
+		MessagesController.sendMessage(this.props.chat.id, data.message)
+
+		FormFn.resetForm('sendmessage')
+	}
+
+	protected componentDidUpdate(oldProps: ChatMessageProps, newProps: ChatMessageProps): boolean {
 		if (newProps.messages) {
 			this.children.messages = this.getMessages()
 			return true
@@ -89,11 +93,7 @@ class ChatMessageComponent extends Block {
 					{{/if}}
 				</div>
 			
-				<div class="chat-message__action">
-					<label for="file" class="chat-message__input-file_label">📁{{{InputFIle}}}</label>
-					{{{InputMessage}}}
-					{{{ButtonSend}}}
-				</div>
+				{{{sendMessage}}}
 			</div>
 			{{{UserListComponent}}}
 			{{else}}
@@ -105,20 +105,17 @@ class ChatMessageComponent extends Block {
 
 	private getMessages() {
 		let messages = deepCopy(this.props.messages, [])
-		
-		// console.log(messages)
-
-		if (Object.keys(messages).length > 0) {
+		if (Object.keys(messages).length > 0 && messages[this.props.selectedChatId]) {
 			messages = messages[this.props.selectedChatId]
+		} else {
+			messages = []
 		}
 
-		if (messages.length > 0) {
+		if (Array.isArray(messages) && messages.length > 0) {
 			messages.reverse()
 		}
 
-		console.log(messages)
-
-		return messages.map((message: any) => {
+		return messages.map((message: Message) => {
 			if (message.type !== 'user connected') {
 				return new ChatMessage({
 					message: message,
@@ -132,5 +129,4 @@ class ChatMessageComponent extends Block {
 
 export const ChatMessenger = withStore((state) => {
 	return { chats: state.chats, users: state.users, messages: state.messages, chat: state.chat, selectedChatId: state.selectedChatId, user: state.user }
-	// @ts-ignore
-})(ChatMessageComponent);
+})(ChatMessageComponent as any);

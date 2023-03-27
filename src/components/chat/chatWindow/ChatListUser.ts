@@ -1,14 +1,15 @@
-import ChatController from '../../../controllers/ChatController';
+import { User } from '../../../api/AuthApi';
+import ChatsController from '../../../controllers/ChatController';
+import { UserToChat } from '../../../types';
 import { Block } from '../../../utils';
 import { deepCopy } from '../../../utils/helpers';
 import { withStore } from '../../../utils/Store';
 import { Button } from '../../button';
 import { Input } from '../../input';
-import { Select } from '../../select';
-import { ChatItem } from '../chatItem';
 import { ChatUser } from './ChatUser';
 interface ChatListUserProps {
   className: Array<string>;
+  users: UserToChat[]
   events?: {
     click: () => void;
   }
@@ -28,9 +29,8 @@ export class ChatListUser extends Block {
       type: 'button',
       events: {
         click: () => {
-          // @ts-ignore
-          let title: any = document.getElementById('addUserToChat').value
-          ChatController.addUser(title, this.props.chatId)
+          let title: string = (document.getElementById('addUserToChat') as HTMLInputElement).value
+          ChatsController.addUser(title, this.props.chatId)
         }
       }
     })
@@ -65,8 +65,7 @@ export class ChatListUser extends Block {
 		`;
   }
 
-  protected componentDidUpdate(oldProps: any, newProps: any): boolean {    
-    // @ts-ignore
+  protected componentDidUpdate(oldProps: ChatListUserProps, newProps: ChatListUserProps): boolean {    
     if (newProps.users) {
       this.children.selectUser = this.getUsers()
       return true;
@@ -81,19 +80,16 @@ export class ChatListUser extends Block {
 
     const users = deepCopy(this.props.users, [])
 
-    let user = users.find((item: { id: any; }) => item.id === this.props.user.id)
-    if (user?.role === 'admin') {
-      return true
-    }
-    return false
+    const user = users.find((item: User) => item.id === this.props.user.id)
+    return user?.role === 'admin'
   }
 
   private getUsers() {
     const users = deepCopy(this.props.users, [])
 
-    return users.map((data: {id: number}) => {
+    return users.map((item: User) => {
       return new ChatUser({
-        user: data,
+        user: item,
         chatId: this.props.chatId,
         className: ["chat-user"]
       });
@@ -104,10 +100,4 @@ export class ChatListUser extends Block {
 
 export const UserListComponent = withStore((state) => {
   return { users: state.users?.list, user: state.user, isLoading: state.users?.isLoading, chatId: state.selectedChatId }
-  // @ts-ignore
-})(ChatListUser);
-
-// export const UsersSelect = withStore((state) => {
-//   return { users: state.users?.list }
-//   // @ts-ignore
-// })(Select);
+})(ChatListUser as any);

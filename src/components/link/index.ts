@@ -1,5 +1,5 @@
-import { Block, Router } from '../../utils';
-
+import { Block } from '../../utils';
+import Router from '../../utils/Router';
 interface LinkProps {
 	className: Array<string>;
 	nameRoute: string;
@@ -21,7 +21,7 @@ export class Link extends Block {
     if (!this.props.events) {
       this.props.events = {};
       this.props.events.click = () => {
-        Router.push(this.props.nameRoute);
+        Router.go(this.props.nameRoute);
       };
     }
   }
@@ -29,7 +29,6 @@ export class Link extends Block {
   render() {
     return `
 			{{label}}
-      
-        	<img src="./assets/images/arrow.png" alt="">`;
+      <img src="./assets/images/arrow.png" alt="">`;
   }
 }

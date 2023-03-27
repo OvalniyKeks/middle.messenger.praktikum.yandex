@@ -81,7 +81,7 @@ export function isEqual(lhs: PlainObject, rhs: PlainObject) {
 }
 
 
-export function deepCopy(data: any, returnError?: any) {
+export function deepCopy(data: unknown, returnError?: unknown) {
   try {
     return JSON.parse(JSON.stringify(data))
   } catch (e) {
@@ -98,16 +98,14 @@ export function getRandomColor() {
   return color;
 }
 
-export function formatDate(dateValue: any) {
+export function formatDate(dateValue: string) {
 
   const date = new Date(dateValue)
 
-  var hh = date.getHours();
-  // @ts-ignore
+  let hh: number | string = date.getHours();
   if (hh < 10) hh = '0' + hh;
 
-  var mm = date.getMinutes();
-  // @ts-ignore
+  let mm: number | string = date.getMinutes();
   if (mm < 10) mm = '0' + mm;
 
   return hh + ':' + mm;

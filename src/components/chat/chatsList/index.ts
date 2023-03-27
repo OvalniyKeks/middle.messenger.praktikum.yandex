@@ -2,10 +2,12 @@ import { Block } from '../../../utils';
 import { Button } from '../../button';
 import { ChatItem } from '../chatItem';
 import { Input } from '../../input';
-import ChatController from '../../../controllers/ChatController';
+import ChatsController from '../../../controllers/ChatController';
+import { Chat } from '../../../types';
 
 interface ChatListProps {
   className: Array<string>;
+  chats: Chat[]
   events?: {
     click: () => void;
   }
@@ -26,9 +28,8 @@ export class ChatsList extends Block {
       type: 'button',
       events: {
         click: () => {
-          // @ts-ignore
-          let title: any = document.getElementById('addNameChat').value
-          ChatController.create(title)
+          let title: string = (document.getElementById('addNameChat') as HTMLInputElement).value
+          ChatsController.create(title)
         }
       }
     })
@@ -60,7 +61,6 @@ export class ChatsList extends Block {
   }
 
   protected componentDidUpdate(oldProps: ChatListProps, newProps: ChatListProps): boolean {
-    // @ts-ignore
     if (newProps.chats) {
       this.children.chats = this.createChats();
       return true;
@@ -69,13 +69,13 @@ export class ChatsList extends Block {
   }
 
   private createChats() {
-    return this.props.chats.map((data: {id: number}) => {
+    return this.props.chats.map((chat: Chat) => {
       return new ChatItem({
-        chatData: data,
+        chatData: chat,
         className: ["chat-item"],
         events: {
           click: () => {
-            ChatController.selectChat(data.id)
+            ChatsController.selectChat(chat.id)
           }
         }
       });

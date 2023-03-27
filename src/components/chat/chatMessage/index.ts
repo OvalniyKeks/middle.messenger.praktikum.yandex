@@ -1,9 +1,10 @@
+import { Message } from '../../../types';
 import { Block } from '../../../utils';
 import { formatDate } from '../../../utils/helpers';
 
 interface ChatMessageProps {
   className?: Array<string>;
-  message: any,
+  message: Message,
   userId: number,
   events?: {
     click: () => void;

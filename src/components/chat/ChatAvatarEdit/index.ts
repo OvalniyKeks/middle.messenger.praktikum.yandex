@@ -40,7 +40,5 @@ export class AvatarEditComponent extends Block {
 
 
 export const AvatarEdit = withStore((state) => {
-	return { user: state.user } || {}
-
-	// @ts-ignore
-})(AvatarEditComponent)
+	return { user: state.user }
+})(AvatarEditComponent as any)

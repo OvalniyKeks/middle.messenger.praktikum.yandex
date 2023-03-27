@@ -41,7 +41,7 @@ export class ProfileApi extends BaseApi {
     return this.http.put("/password", data);
   }
 
-  searchUser(data: ProfileSearch): Promise<Profile> {
+  searchUser(data: ProfileSearch): Promise<any> {
     return this.http.post("/search", data);
   }
 
