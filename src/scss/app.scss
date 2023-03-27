@@ -9,11 +9,26 @@
 @import "chat";
 @import "profile";
 @import "error";
-
 @import "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap";
 
 body {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: Roboto, sans-serif;
+}
+
+#app {
+  height: 100%;
+  min-height: 100vh;
+}
+
+.app{
+  &-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #222;
+    font-size: 24px;
+  }
 }

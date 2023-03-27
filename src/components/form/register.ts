@@ -1,6 +1,7 @@
 import { Block } from '../../utils';
 import { Input } from '../input';
 import { Button } from '../button';
+import { Link } from '../link';
 
 interface RegisterProps {
     className: Array<string>;
@@ -44,6 +45,9 @@ export class FormRegister extends Block {
         this.children.ButtonSubmit = new Button({
         	className: ['form-button'], type: 'submit', name: 'submit', label: 'Зарегистрироваться',
         });
+        this.children.LinkRegister = new Link({
+          className: ['link'], nameRoute: 'Login', label: 'Войти', arrow: false
+        })
   }
 
   render() {
@@ -56,6 +60,7 @@ export class FormRegister extends Block {
         {{{InputPassword}}}
         {{{InputRepeatPassword}}}
         {{{ButtonSubmit}}}
+        <div class="form-bottom flex flex-center"><span style="margin-right: 5px">Есть аккаунт?</span> {{{LinkRegister}}}</div>
         `;
   }
 }

@@ -6,10 +6,12 @@
   font-weight: 500;
   color: $link;
   cursor: pointer;
+
   & img {
     padding-top: 2px;
     height: 14px;
   }
+
   &-red {
     color: $link_dangerous;
   }

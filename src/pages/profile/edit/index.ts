@@ -1,74 +1,89 @@
-import { Block, FormFn, Router } from '../../../utils';
-import { ChatBarAvatar } from '../../../components/chat/chatAvatar';
+import { Block, FormFn } from '../../../utils';
 import { FormEditProfile } from '../../../components/form/editprofile';
+import store from '../../../utils/Store';
+import { withStore } from '../../../utils/Store';
+import ProfileController from '../../../controllers/ProfileController';
+import { Link } from '../../../components/link';
+import { AvatarEdit } from '../../../components/chat/ChatAvatarEdit';
 
 interface ProfileProps {
 	className: string;
 }
 
-interface ProfileDataProps {
-	image: string,
-	name: string,
-	surname: string,
-	chat_name: string,
-	phone: string,
-	email: string,
-	login: string
-}
+class ProfileEditPage extends Block {
 
-export class ProfileEdit extends Block {
-  dataProfile: ProfileDataProps;
+	constructor(props: ProfileProps) {
+		super('main', props);
+	}
 
-  constructor(props: ProfileProps) {
-    super('main', props);
-  }
-
-  init() {
+	init() {
 		this.element!.classList.add('page', 'profile', 'flex', 'flex-center', 'flex-column');
 
-		this.dataProfile = this._getDataProfile();
+		this.children.ChatAvatarEdit = new AvatarEdit({
+			className: ['form', 'form-avatar', 'flex-center'],
+			id: 'uploadavatar',
+			events: {
+				submit: (event: SubmitEvent) => {
+					event!.preventDefault()
+					this.uploadPhoto(event.target as HTMLFormElement)
+				}
+			}
+		})
 
-		this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.dataProfile.image });
-
-		this.children.FormEditProfile = new FormEditProfile({
-		  name: 'editprofile',
-		  className: ['form'],
-		  events: {
-		    submit: (event: SubmitEvent) => {
+		this.children.FormEditProfile = new FormEditProfileComponent({
+			name: 'editprofile',
+			className: ['form'],
+			events: {
+				submit: (event: SubmitEvent) => {
 					event!.preventDefault();
 					const resultCheck = FormFn.checkForm('editprofile');
 					if (resultCheck) {
-					  console.log(FormFn.getFields('editprofile'));
-					  Router.push('profile');
+						this.onSubmit()
 					}
-		    },
-		  },
+				},
+			},
 		});
-  }
 
-  render() {
-    return `
+		this.children.LinkBack = new Link({
+			className: ['link'],
+			label: 'Назад',
+			nameRoute: '/profile',
+			arrow: false,
+		});
+	}
+
+	onSubmit() {
+		let fields = FormFn.getFields('editprofile')
+
+		let data: { [key: string]: any } = {}
+		fields.forEach(field => {
+			data[(field as HTMLInputElement).name] = (field as HTMLInputElement).value
+		});
+
+		ProfileController.updateProfile({ ...store.getState().user, ...data })
+	}
+
+	uploadPhoto(form: HTMLFormElement) {
+		let formData = new FormData(form)
+
+		ProfileController.updateAvatar(formData)
+	}
+
+	render() {
+		return `
+			<div style="margin-bottom: 20px">{{{LinkBack}}}</div>
     	<div class="card card-profile">
-  		  {{{ ChatAvatar}}}
-  		  <div class="flex flex-column flex-around" style="margin-left: 20px;">
-  		    <div class="card-profile__name">${this.dataProfile.name}</div>
-  		    <div class="card-profile__phone">${this.dataProfile.phone}</div>
-  		  </div>
+			{{{ChatAvatarEdit}}}
   		</div>
   		<div class="card">{{{FormEditProfile}}}</div>
 			`;
-  }
-
-  _getDataProfile() {
-    const data: any = {
-      image: 'https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg',
-      name: 'Антон',
-      surname: 'Попов',
-      chat_name: 'Антон',
-      phone: '+7 (909) 643 34 43',
-      email: 'keks_practicum@gmail.com',
-      login: 'keks',
-    };
-    return data;
-  }
+	}
 }
+
+export const ProfileEdit = withStore((state) => {
+	return { user: state.user } || {}
+})(ProfileEditPage as any)
+
+export const FormEditProfileComponent = withStore((state) => {
+	return { user: state.user }
+})(FormEditProfile as any);

@@ -19,11 +19,11 @@ export class FormEditProfilePassword extends Block {
     this.props.className.forEach((element: string) => this.element!.classList.add(element));
 
         this.element!.setAttribute('data-id', this.props.name);
-        this.children.InputPassword = new Input({
-        	className: ['form-input'], type: 'password', name: 'password', placeholder: 'Пароль',
+        this.children.InputOldPassword = new Input({
+        	className: ['form-input'], type: 'password', name: 'oldPassword', placeholder: 'Старый пароль',
         });
-        this.children.InputRepeatPassword = new Input({
-        	className: ['form-input'], type: 'password', name: 'repeatPassword', placeholder: 'Повторите пароль',
+        this.children.InputNewPassword = new Input({
+        	className: ['form-input'], type: 'password', name: 'newPassword', placeholder: 'Новый пароль',
         });
         this.children.ButtonSubmit = new Button({
         	className: ['form-button'], type: 'submit', name: 'submit', label: 'Сохранить',
@@ -33,8 +33,8 @@ export class FormEditProfilePassword extends Block {
   render() {
     return `
         
-        {{{InputPassword}}}
-        {{{InputRepeatPassword}}}
+        {{{InputOldPassword}}}
+        {{{InputNewPassword}}}
         {{{ButtonSubmit}}}
         `;
   }

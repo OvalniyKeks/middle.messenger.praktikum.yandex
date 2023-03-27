@@ -1,103 +1,42 @@
+import { Message } from '../../../types';
 import { Block } from '../../../utils';
-import { Input } from '../../input';
-import { Button } from '../../button';
-import { ChatBarAvatar } from '../chatAvatar';
-
-interface chat {
-	_id: string,
-	image: string,
-	name: string,
-	lastMessage: string,
-	timeOrDate: string,
-	countUnreadMessages: number,
-	selected: boolean
-}
+import { formatDate } from '../../../utils/helpers';
 
 interface ChatMessageProps {
-	className: Array<string>;
-	currentChat: chat | string;
+  className?: Array<string>;
+  message: Message,
+  userId: number,
+  events?: {
+    click: () => void;
+  }
 }
 
 export class ChatMessage extends Block {
+  typeMessage: string;
   constructor(props: ChatMessageProps) {
     super('div', props);
   }
 
   init() {
-    this.props.className.forEach((element: string) => this.element!.classList.add(element));
+    if (this.props.className && this.props.className.length > 0) {
+      this.props.className.forEach((element: string) => this.element!.classList.add(element));
+    }
 
-    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props.currentChat.image });
+    this.element!.classList.add('chat-message__item-wrapper')
 
-    this.children.InputFIle = new Input({
-      className: ['chat-message__input-file'], type: 'file', name: 'file', id: 'file',
-    });
-    this.children.InputMessage = new Input({
-      className: ['input-field', 'chat-message__input-text'], type: 'text', name: 'message', placeholder: 'Введите сообщение',
-    });
-    this.children.ButtonSend = new Button({
-      className: ['chat-message__input-send'], type: 'submit', name: 'send', label: 'Отправить',
-    });
+
+    this.typeMessage = 'another'
+    if (this.props.userId === this.props.message.user_id) {
+      this.typeMessage = 'my'
+    }
   }
 
   render() {
-    if (typeof this.props.currentChat === 'string') {
-      return `${this.props.currentChat}`;
-    }
-    return `
-      <div class="chat-message__header">
-		  	<div class="chat-bar__profile-inner">
-		 		{{{ChatAvatar}}}
-		  		<div class="chat-bar__profile-title">${this.props.currentChat.name}</div>
-			</div>
-    	  <div class="chat-message__menu">
-    	    ...
-    	  </div>
-    	</div>
-		
-    	<div class="chat-message__window">
-    	  <div class="chat-message__date">19 июля</div>
-    	  <div class="chat-message__item-wrapper">
-			<div class="chat-message__item another">
-			  <div class="chat-message__item-content">another message dwadwadawdawdawdd</div>
-			  <div class="chat-message__item-time">12:38</div>
-			</div>
-		  </div>
-    	  <div class="chat-message__item-wrapper">
-			<div class="chat-message__item my">
-			  <div class="chat-message__item-content">This is my message</div>
-			  <div class="chat-message__item-time">15:42</div>
-			</div>
-		  </div>
-    	  <div class="chat-message__item-wrapper">
-			<div class="chat-message__item my">
-			  <div class="chat-message__item-content">This is my message</div>
-			  <div class="chat-message__item-time">15:42</div>
-			</div>
-		  </div>
-    	  <div class="chat-message__item-wrapper">
-			<div class="chat-message__item my">
-			  <div class="chat-message__item-content">This is my message</div>
-			  <div class="chat-message__item-time">15:42</div>
-			</div>
-		  </div>
-    	  <div class="chat-message__item-wrapper">
-			<div class="chat-message__item my">
-			  <div class="chat-message__item-content">This is my message</div>
-			  <div class="chat-message__item-time">15:42</div>
-			</div>
-		  </div>
-		  <div class="chat-message__item-wrapper">
-			<div class="chat-message__item another">
-			  <div class="chat-message__item-content">another message dwadwadawdawdawdd</div>
-			  <div class="chat-message__item-time">12:38</div>
-			</div>
-		  </div>
-    	</div>
-		
-    	<div class="chat-message__action">
-    	  <label for="file" class="chat-message__input-file_label">📁{{{InputFIle}}}</label>
-    	  {{{InputMessage}}}
-    	  {{{ButtonSend}}}
-    	</div>`;
+    return `  
+    <div class="chat-message__item ${this.typeMessage}">
+      <div class="chat-message__item-content">${this.props.message.content}</div>
+      <div class="chat-message__item-time">${ formatDate(this.props.message.time)}</div>
+    </div>
+    `;
   }
 }

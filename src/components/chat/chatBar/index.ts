@@ -1,13 +1,11 @@
 import { Block } from '../../../utils';
 import { ChatBarAvatar } from '../chatAvatar';
 import { Link } from '../../link';
-import { Input } from '../../input';
-
 interface ChatBarProps {
-	className: Array<string>;
-	events?: {
-		click: () => void;
-	}
+  className: Array<string>;
+  events?: {
+    click: () => void;
+  }
 }
 
 export class ChatBar extends Block {
@@ -18,16 +16,12 @@ export class ChatBar extends Block {
   init() {
     this.props.className.forEach((element: string) => this.element!.classList.add(element));
 
-    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: 'https://i.ytimg.com/vi/eXwZMAz9Vh8/maxresdefault.jpg' });
+    this.children.ChatAvatar = new ChatBarAvatar({ className: ['chat-avatar'], src: this.props.user.avatar, name: this.props.user.display_name ?? this.props.user.first_name });
     this.children.Link = new Link({
       className: ['link'],
       label: 'Профиль',
-      nameRoute: 'profile',
+      nameRoute: '/profile',
       arrow: true,
-    });
-
-    this.children.Input = new Input({
-      className: ['input-field'], type: 'search', name: 'search', placeholder: 'Поиск по чатам...',
     });
   }
 
@@ -36,11 +30,11 @@ export class ChatBar extends Block {
     <div class="chat-bar__profile">
 			<div class="chat-bar__profile-inner">
         {{{ChatAvatar}}}
-				<div class="chat-bar__profile-title">Антон</div>
+        <div class="chat-bar__profile-title">${this.props.user.display_name ?? this.props.user.first_name}</div>
 			</div>
 			{{{ Link}}}
 		</div>
-		{{{Input}}}
 		`;
   }
 }
+
