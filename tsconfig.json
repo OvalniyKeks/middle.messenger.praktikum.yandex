@@ -12,6 +12,7 @@
     "isolatedModules": false,
     "typeRoots" : ["src/typings"]
   },
+  "ts-node": { "files": true },
   "exclude": [
     "node_modules",
     ".parcel-cache",

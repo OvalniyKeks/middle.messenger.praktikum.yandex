@@ -77,7 +77,7 @@ export default class HTTPTransport {
       const isGet = method === Method.Get;
       xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
 
-      xhr.onreadystatechange = (e) => {
+      xhr.onreadystatechange = () => {
 
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status < 400) {

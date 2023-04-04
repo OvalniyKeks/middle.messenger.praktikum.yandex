@@ -60,7 +60,7 @@ export class ChatsList extends Block {
     `;
   }
 
-  protected componentDidUpdate(oldProps: ChatListProps, newProps: ChatListProps): boolean {
+  protected componentDidUpdate(newProps: ChatListProps): boolean {
     if (newProps.chats) {
       this.children.chats = this.createChats();
       return true;

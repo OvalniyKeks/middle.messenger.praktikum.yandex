@@ -7,6 +7,8 @@ import { Chat } from './pages/chat';
 import { ProfileEdit } from './pages/profile/edit';
 import { ProfileEditPassword } from './pages/profile/editPassword';
 
+import "./scss/app.scss"
+
 enum Routes {
   Index = '/',
   Register = '/register',
