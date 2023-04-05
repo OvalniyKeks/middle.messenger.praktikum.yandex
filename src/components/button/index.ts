@@ -1,9 +1,9 @@
 import { Block } from '../../utils';
 
 interface ButtonProps {
-	className: Array<string>;
-	type: string;
-	name: string;
+	className?: Array<string>;
+	type?: string;
+	name?: string;
 	label?: string,
 	events?: {
 		click: () => void;
@@ -16,12 +16,18 @@ export class Button extends Block {
   }
 
   init() {
-    this.props.className.forEach((element: string) => this.element!.classList.add(element));
-
+    if (this.props.className) {
+      this.props.className.forEach((element: string) => this.element!.classList.add(element));
+    }
+    
     this.element!.classList.add('button')
 
-    this.element!.setAttribute('type', this.props.type)
-    this.element!.setAttribute('name', this.props.name)
+    if (this.props.type) {
+      this.element!.setAttribute('type', this.props.type)
+    }
+    if (this.props.name) {
+      this.element!.setAttribute('name', this.props.name)
+    }
   }
 
   render() {
