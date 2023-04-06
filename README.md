@@ -2,7 +2,7 @@
 Чат- средство обмена сообщениями по компьютерной сети в режиме реального времени, а также программное обеспечение, позволяющее организовывать такое общение
 
 ## Демо
-Демо: https://darling-sunshine-dc6ab9.netlify.app/
+Демо: https://bbahlo8kl08b7rfgfcvp.containers.yandexcloud.net
 
 
 ## Макет
@@ -18,4 +18,6 @@ npm install - установка зависимостей
 npm run dev - запуск сервера разработки
 npm run build - сборка версии проекта
 npm run start - запуск сервера на localhost:3000 с использованием express
+
+npm run test - запуск unit тестов
 ```
