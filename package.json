@@ -8,20 +8,20 @@
     "dev:parcel": "parcel src/index.html --no-cache --port 3000 --open",
     "build:parcel": "parcel build src/index.hbs --no-cache",
     "start": "webpack --mode production && node server.js",
-    "lint": "eslint . --fix --ext .js,.ts",
+    "lint": "eslint . --fix --ext .js,.ts && stylelint **/*.scss",
     "test": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'",
     "prepare": "husky install"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all test lint:all"
+      "pre-commit": "npm-run-all test lint"
     }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "1.0.9",
+    "@anikin/parcel-transformer-handlebars": "^1.0.2",
     "@anikin/parcel-transformer-handlebars-precompile": "1.0.1",
     "@parcel/transformer-sass": "2.8.3",
     "@types/chai": "4.3.3",
