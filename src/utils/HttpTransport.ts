@@ -69,7 +69,6 @@ export default class HTTPTransport {
 
   private request<Response>(url: string, options: Options = {}): Promise<Response> {
     const { method = Method.Get, data } = options;
-    const isFormData = data instanceof FormData;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -77,7 +76,7 @@ export default class HTTPTransport {
       const isGet = method === Method.Get;
       xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
 
-      xhr.onreadystatechange = (e) => {
+      xhr.onreadystatechange = () => {
 
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status < 400) {
@@ -92,19 +91,22 @@ export default class HTTPTransport {
       xhr.onerror = () => reject({ reason: 'network error' });
       xhr.ontimeout = () => reject({ reason: 'timeout' });
 
-      let contentType = 'application/json'
-      if (!isFormData) {
-        xhr.setRequestHeader('Content-Type', contentType);
-      }
-
       xhr.withCredentials = true;
       xhr.responseType = 'json';
+
+      if (data instanceof FormData) {
+        xhr.send(data)
+        return;
+      }
+
+      xhr.setRequestHeader("Content-Type", "application/json");
 
       if (method === Method.Get || !data) {
         xhr.send();
       } else {
-        xhr.send(isFormData ? data : JSON.stringify(data));
+        xhr.send(JSON.stringify(data))
       }
+
     });
   }
 }

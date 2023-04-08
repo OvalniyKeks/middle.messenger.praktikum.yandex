@@ -65,7 +65,7 @@ export class ChatListUser extends Block {
 		`;
   }
 
-  protected componentDidUpdate(oldProps: ChatListUserProps, newProps: ChatListUserProps): boolean {    
+  protected componentDidUpdate(newProps: ChatListUserProps): boolean {    
     if (newProps.users) {
       this.children.selectUser = this.getUsers()
       return true;

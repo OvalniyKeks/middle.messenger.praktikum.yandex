@@ -1,6 +1,4 @@
 import { Block, FormFn } from '../../../utils';
-import { Input } from '../../input';
-import { Button } from '../../button';
 import { withStore } from '../../../utils/Store';
 import { UserListComponent } from './ChatListUser';
 import MessagesController from '../../../controllers/MessagesController';
@@ -61,7 +59,7 @@ class ChatMessageComponent extends Block {
 		FormFn.resetForm('sendmessage')
 	}
 
-	protected componentDidUpdate(oldProps: ChatMessageProps, newProps: ChatMessageProps): boolean {
+	protected componentDidUpdate(newProps: ChatMessageProps): boolean {
 		if (newProps.messages) {
 			this.children.messages = this.getMessages()
 			return true
